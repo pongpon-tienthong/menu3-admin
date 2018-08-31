@@ -10,14 +10,20 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
+import Portal from '@material-ui/core/Portal';
+import Button from '@material-ui/core/Button';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+
+import RestaurantForm from "../Restaurant/RestaurantForm/RestaurantForm";
 
 const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
     display: 'flex',
+    flexDirection: 'column',
+    height: '100vh',
   },
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
@@ -78,14 +84,25 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
-    height: '100vh',
+    // height: '100vh',
     overflow: 'auto',
+  },
+  alert: {
+    padding: theme.spacing.unit,
+    margin: `${theme.spacing.unit}px 0`
   }
 });
 
 class Layout extends Component {
+  container = null;
+
   state = {
-    open: true,
+    open: false,
+    show: false
+  };
+
+  handleClick = () => {
+    this.setState(state => ({ show: !state.show }));
   };
 
   handleDrawerOpen = () => {
@@ -98,6 +115,7 @@ class Layout extends Component {
 
   render() {
     const { classes } = this.props;
+    const { show } = this.state;
 
     return (
       <div className={classes.root}>
@@ -122,30 +140,59 @@ class Layout extends Component {
             </Typography>
           </Toolbar>
         </AppBar>
-        <Drawer
-          variant="permanent"
-          classes={{
-            paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
-          }}
-          open={this.state.open}
-        >
-          <div className={classes.toolbarIcon}>
-            <IconButton onClick={this.handleDrawerClose}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </div>
-          <Divider />
-          <List>
-            <SideDrawerList />
-          </List>
-        </Drawer>
-        <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          {this.props.children}
-        </main>
+        <div style={{
+          flexGrow: 1,
+          display: 'flex',
+          flexDirection: 'row'
+        }}>
+          <Drawer
+            variant="permanent"
+            classes={{
+              paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+            }}
+            open={this.state.open}
+          >
+            <div className={classes.toolbarIcon}>
+              <IconButton onClick={this.handleDrawerClose}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </div>
+            <Divider />
+            <List>
+              <SideDrawerList />
+            </List>
+          </Drawer>
+          <main className={classes.content}>
+            <div className={classes.appBarSpacer} />
+            {this.props.children}
+          </main>
+        </div>
+        <div style={{ width: '100%', minHeight: '50px', backgroundColor: 'darkblue' }}>
+          FOOTER
+        </div>
       </div>
     );
   }
 }
 
 export default withStyles(styles)(Layout);
+
+{/* <div>
+  <Button onClick={this.handleClick}>Create a Restaurant</Button>
+  <div>
+    {show ? (
+      <Portal container={this.container}>
+        <RestaurantForm styles={{
+          position: 'fixed',
+          bottom: 0,
+          right: 10
+        }} />
+      </Portal>
+    ) : null}
+  </div>
+  <div className={classes.alert}
+    ref={ref => {
+      this.container = ref;
+    }}
+  />
+</div> */}
