@@ -1,18 +1,25 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
+import { Minimize, Close } from '@material-ui/icons';
 
 const styles = theme => ({
-  appBar: {
-    position: 'relative'
+  cardHeader: {
+    position: 'relative',
+    color: theme.palette.primary.contrastText,
+    backgroundColor: theme.palette.primary.main,
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit 
   },
   layout: {
     width: 'auto',
@@ -50,16 +57,30 @@ class RestaurantForm extends Component {
     const { classes } = this.props;
 
     return (
-      <div style={{ visibility: 'visible', width: '600px', marginRight: '10%' }}>
-        <AppBar className={classNames(classes.appBar, classes.layout)}>
-          <Toolbar>
-            <Typography variant="title" color="inherit" noWrap>
-              New Restaurant
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <main className={classes.layout}>
-          <Paper className={classes.paper}>
+      <div
+        style={{ visibility: 'visible', width: '500px', marginRight: '10%' }}
+        className={classes.layout}
+      >
+        <Card>
+          <CardHeader
+            className={classes.cardHeader}
+            title="New Restaurant"
+            action={
+              <Fragment>
+                <Button classes={{ root: classes.tabRoot }} color="inherit">
+                  <Minimize />
+                </Button>
+                <Button classes={{ root: classes.tabRoot }} color="inherit">
+                  <Close />
+                </Button>
+              </Fragment>
+            }
+            titleTypographyProps={{
+              variant: "title",
+              // color: theme.palette.primary.contrastText
+            }}
+          />
+          <CardContent className={classes.paper}>
             <Grid container spacing={24}>
               <Grid item xs={12}>
                 <TextField
@@ -135,8 +156,8 @@ class RestaurantForm extends Component {
                 Create
               </Button>
             </div>
-          </Paper>
-        </main>
+          </CardContent>
+        </Card>
       </div>
     );
   }
