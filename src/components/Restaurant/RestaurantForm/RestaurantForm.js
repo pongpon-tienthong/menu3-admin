@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -19,9 +19,7 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2,
     [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
-      width: 600,
-      marginLeft: 'auto',
-      marginRight: 'auto',
+      width: 600
     },
   },
   paper: {
@@ -52,7 +50,7 @@ class RestaurantForm extends Component {
     const { classes } = this.props;
 
     return (
-      <Fragment>
+      <div style={{ visibility: 'visible', width: '600px', marginRight: '10%' }}>
         <AppBar className={classNames(classes.appBar, classes.layout)}>
           <Toolbar>
             <Typography variant="title" color="inherit" noWrap>
@@ -139,7 +137,7 @@ class RestaurantForm extends Component {
             </div>
           </Paper>
         </main>
-      </Fragment>
+      </div>
     );
   }
 }

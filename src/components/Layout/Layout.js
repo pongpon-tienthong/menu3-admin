@@ -164,10 +164,20 @@ class Layout extends Component {
           </Drawer>
           <main className={classes.content}>
             <div className={classes.appBarSpacer} />
+            <Button onClick={this.handleClick}>Create a Restaurant</Button>
+            <div>
+              {show ? (
+                <Portal container={this.container}>
+                  <RestaurantForm>RESTAURANT FORM</RestaurantForm>
+                </Portal>
+              ) : null}
+            </div>
             {this.props.children}
           </main>
         </div>
-        <div style={{ width: '100%', minHeight: '50px', backgroundColor: 'darkblue' }}>
+        <div style={{ visibility: 'hidden', width: '100%', position: 'fixed', zIndex: 1500, bottom: 0, display: 'flex', justifyContent: 'flex-end' }} ref={ref => {
+          this.container = ref;
+        }}>
           FOOTER
         </div>
       </div>
@@ -176,23 +186,3 @@ class Layout extends Component {
 }
 
 export default withStyles(styles)(Layout);
-
-{/* <div>
-  <Button onClick={this.handleClick}>Create a Restaurant</Button>
-  <div>
-    {show ? (
-      <Portal container={this.container}>
-        <RestaurantForm styles={{
-          position: 'fixed',
-          bottom: 0,
-          right: 10
-        }} />
-      </Portal>
-    ) : null}
-  </div>
-  <div className={classes.alert}
-    ref={ref => {
-      this.container = ref;
-    }}
-  />
-</div> */}
