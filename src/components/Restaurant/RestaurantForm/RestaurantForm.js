@@ -73,10 +73,10 @@ class RestaurantForm extends Component {
 
     return (
       <div
-        style={{ visibility: 'visible', width: this.state.restaurantFormWidth, marginRight: '10%' }}
+        style={{ visibility: 'visible', width: this.state.restaurantFormWidth, marginRight: '10%', backgroundColor: 'transparent' }}
         className={classes.layout}
       >
-        <Card>
+        <Card style={{ borderRadius: '4px 4px 0 0' }}>
           <CardHeader
             className={classes.cardHeader}
             title="New Restaurant"
