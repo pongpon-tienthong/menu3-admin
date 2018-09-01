@@ -2,10 +2,7 @@ import React, { Component, Fragment } from 'react'
 import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Card from "@material-ui/core/Card";
@@ -18,8 +15,9 @@ const styles = theme => ({
     position: 'relative',
     color: theme.palette.primary.contrastText,
     backgroundColor: theme.palette.primary.main,
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit 
+    paddingTop: theme.spacing.unit / 2,
+    paddingBottom: theme.spacing.unit / 2,
+    cursor: 'pointer'
   },
   layout: {
     width: 'auto',
@@ -46,117 +44,138 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3,
     marginLeft: theme.spacing.unit,
   },
+  cardHeaderAction: {
+    marginTop: 0
+  }
 });
 
 class RestaurantForm extends Component {
+  state = {
+    minimize: false,
+    restaurantFormWidth: '500px'
+  }
+
   handleNext = () => {
     console.log('handleNext');
   };
+
+  handleMinimize = e => {
+    e.stopPropagation();
+
+    this.setState(state => ({
+      minimize: !state.minimize,
+      restaurantFormWidth: state.minimize ? '500px' : '300px'
+    }));
+  }
 
   render() {
     const { classes } = this.props;
 
     return (
       <div
-        style={{ visibility: 'visible', width: '500px', marginRight: '10%' }}
+        style={{ visibility: 'visible', width: this.state.restaurantFormWidth, marginRight: '10%' }}
         className={classes.layout}
       >
         <Card>
           <CardHeader
             className={classes.cardHeader}
             title="New Restaurant"
+            classes={{ action: classes.cardHeaderAction }}
             action={
               <Fragment>
-                <Button classes={{ root: classes.tabRoot }} color="inherit">
-                  <Minimize />
+                <Button style={{ padding: '8px', minWidth: '40px', fontSize: '20px' }} color="inherit" onClick={this.handleMinimize}>
+                  <Minimize fontSize='inherit' />
                 </Button>
-                <Button classes={{ root: classes.tabRoot }} color="inherit">
-                  <Close />
+                <Button style={{ padding: '8px', minWidth: '40px', fontSize: '20px' }} color="inherit" onClick={this.props.onCloseRestaurantForm}>
+                  <Close fontSize='inherit' />
                 </Button>
               </Fragment>
             }
             titleTypographyProps={{
               variant: "title",
-              // color: theme.palette.primary.contrastText
+              color: "inherit"
             }}
+            onClick={this.handleMinimize}
           />
-          <CardContent className={classes.paper}>
-            <Grid container spacing={24}>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  id="name"
-                  name="name"
-                  label="Restaurant name"
-                  fullWidth
-                  autoComplete="off"
-                />
+          {this.state.minimize ? null :
+            <CardContent className={classes.paper}>
+              <Grid container spacing={24}>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    id="name"
+                    name="name"
+                    label="Restaurant name"
+                    fullWidth
+                    autoComplete="off"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    id="address1"
+                    name="address1"
+                    label="Address line 1"
+                    fullWidth
+                    autoComplete="billing address-line1"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    id="addiress2"
+                    name="addiress2"
+                    label="Address line 2"
+                    fullWidth
+                    autoComplete="billing address-line2"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="city"
+                    name="city"
+                    label="City"
+                    fullWidth
+                    autoComplete="billing address-level2"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField id="state" name="state" label="State/Province/Region" fullWidth />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="zip"
+                    name="zip"
+                    label="Zip / Postal code"
+                    fullWidth
+                    autoComplete="billing postal-code"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="payingPriority"
+                    name="payingPriority"
+                    label="Paying Priority"
+                    type="number"
+                    autoComplete="off"
+                    fullWidth
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  id="address1"
-                  name="address1"
-                  label="Address line 1"
-                  fullWidth
-                  autoComplete="billing address-line1"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id="addiress2"
-                  name="addiress2"
-                  label="Address line 2"
-                  fullWidth
-                  autoComplete="billing address-line2"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="city"
-                  name="city"
-                  label="City"
-                  fullWidth
-                  autoComplete="billing address-level2"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField id="state" name="state" label="State/Province/Region" fullWidth />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="zip"
-                  name="zip"
-                  label="Zip / Postal code"
-                  fullWidth
-                  autoComplete="billing postal-code"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="payingPriority"
-                  name="payingPriority"
-                  label="Paying Priority"
-                  type="number"
-                  autoComplete="off"
-                  fullWidth
-                />
-              </Grid>
-            </Grid>
-            <div className={classes.buttons}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={this.handleNext}
-                className={classes.button}
-              >
-                Create
+              <div className={classes.buttons}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={this.handleNext}
+                  className={classes.button}
+                >
+                  Create
               </Button>
-            </div>
-          </CardContent>
+              </div>
+            </CardContent>
+          }
         </Card>
       </div>
     );

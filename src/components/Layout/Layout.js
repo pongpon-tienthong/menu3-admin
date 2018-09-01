@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import SideDrawerList from "./SideDrawerList";
 
 import classNames from 'classnames';
@@ -102,7 +102,14 @@ class Layout extends Component {
   };
 
   handleClick = () => {
-    this.setState(state => ({ show: !state.show }));
+    if (!this.state.show) {
+      this.setState({ show: true });
+    }
+  };
+
+  // TODO: properly handle closing the Restaurant form
+  handleClose = () => {
+    this.setState({ show: false });
   };
 
   handleDrawerOpen = () => {
@@ -168,7 +175,7 @@ class Layout extends Component {
             <div>
               {show ? (
                 <Portal container={this.container}>
-                  <RestaurantForm>RESTAURANT FORM</RestaurantForm>
+                  <RestaurantForm onCloseRestaurantForm={this.handleClose} />
                 </Portal>
               ) : null}
             </div>
@@ -177,9 +184,7 @@ class Layout extends Component {
         </div>
         <div style={{ visibility: 'hidden', width: '100%', position: 'fixed', zIndex: 1500, bottom: 0, display: 'flex', justifyContent: 'flex-end' }} ref={ref => {
           this.container = ref;
-        }}>
-          FOOTER
-        </div>
+        }} />
       </div>
     );
   }
