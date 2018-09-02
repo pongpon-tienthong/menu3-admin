@@ -24,7 +24,7 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2,
     [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
-      width: 600
+      width: 500
     },
   },
   paper: {
@@ -73,7 +73,7 @@ class RestaurantForm extends Component {
 
     return (
       <div
-        style={{ visibility: 'visible', width: this.state.restaurantFormWidth, marginRight: '10%', backgroundColor: 'transparent' }}
+        style={{ visibility: 'visible', width: this.state.restaurantFormWidth, backgroundColor: 'transparent' }}
         className={classes.layout}
       >
         <Card style={{ borderRadius: '4px 4px 0 0' }}>

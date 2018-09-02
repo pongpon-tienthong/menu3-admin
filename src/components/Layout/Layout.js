@@ -13,9 +13,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Portal from '@material-ui/core/Portal';
 import Button from '@material-ui/core/Button';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 import RestaurantForm from "../Restaurant/RestaurantForm/RestaurantForm";
+import menu3Logo from "../../asset/images/menu3_logo.png";
 
 const drawerWidth = 240;
 
@@ -37,14 +37,24 @@ const styles = theme => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+    backgroundColor: theme.palette.common.white,
+    boxShadow: 'none',
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBar2: {
+    zIndex: theme.zIndex.drawer - 1,
+    backgroundColor: theme.palette.common.white,
+    boxShadow: 'none', //TODO: Add boxShadow when scoll
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
   appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
+    width: '100%',
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -52,7 +62,7 @@ const styles = theme => ({
   },
   menuButton: {
     marginLeft: 12,
-    marginRight: 36,
+    marginRight: 12,
   },
   menuButtonHidden: {
     display: 'none',
@@ -63,6 +73,7 @@ const styles = theme => ({
   drawerPaper: {
     position: 'relative',
     whiteSpace: 'nowrap',
+    border: 'none',
     width: drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
@@ -84,12 +95,16 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
-    // height: '100vh',
     overflow: 'auto',
   },
   alert: {
     padding: theme.spacing.unit,
     margin: `${theme.spacing.unit}px 0`
+  },
+  logo: {
+    width: theme.spacing.unit * 3,
+    height: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit
   }
 });
 
@@ -113,7 +128,7 @@ class Layout extends Component {
   };
 
   handleDrawerOpen = () => {
-    this.setState({ open: true });
+    this.setState(state => ({ open: !state.open }));
   };
 
   handleDrawerClose = () => {
@@ -127,25 +142,26 @@ class Layout extends Component {
     return (
       <div className={classes.root}>
         <AppBar
-          position="absolute"
-          className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
+          position="static"
+          className={classes.appBar}
         >
-          <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
+          <Toolbar disableGutters={true} className={classes.toolbar}>
             <IconButton
               color="inherit"
               aria-label="Open drawer"
               onClick={this.handleDrawerOpen}
               className={classNames(
-                classes.menuButton,
-                this.state.open && classes.menuButtonHidden,
+                classes.menuButton
               )}
             >
               <MenuIcon />
             </IconButton>
+            <img className={classes.logo} src={menu3Logo} />
             <Typography variant="title" color="inherit" noWrap className={classes.title}>
-              Menu3 Dashboard
+              Menu3 Admin
             </Typography>
           </Toolbar>
+          <Divider />
         </AppBar>
         <div style={{
           flexGrow: 1,
@@ -159,28 +175,36 @@ class Layout extends Component {
             }}
             open={this.state.open}
           >
-            <div className={classes.toolbarIcon}>
-              <IconButton onClick={this.handleDrawerClose}>
-                <ChevronLeftIcon />
-              </IconButton>
-            </div>
-            <Divider />
             <List>
               <SideDrawerList />
             </List>
           </Drawer>
-          <main className={classes.content}>
-            <div className={classes.appBarSpacer} />
-            <Button onClick={this.handleClick}>Create a Restaurant</Button>
-            <div>
-              {show ? (
-                <Portal container={this.container}>
-                  <RestaurantForm onCloseRestaurantForm={this.handleClose} />
-                </Portal>
-              ) : null}
-            </div>
-            {this.props.children}
-          </main>
+          <div style={{
+            flexGrow: 1,
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            <AppBar
+              position="static"
+              color="default"
+              className={classNames(classes.appBar2, this.state.open && classes.appBarShift)}
+            >
+              <Toolbar variant='dense'>
+                <Button onClick={this.handleClick}>Create a Restaurant</Button>
+              </Toolbar>
+              <Divider />
+            </AppBar>
+            <main className={classes.content}>
+              <div>
+                {show ? (
+                  <Portal container={this.container}>
+                    <RestaurantForm onCloseRestaurantForm={this.handleClose} />
+                  </Portal>
+                ) : null}
+              </div>
+              {this.props.children}
+            </main>
+          </div>
         </div>
         <div style={{ visibility: 'hidden', width: '100%', position: 'fixed', zIndex: 1500, bottom: 0, display: 'flex', justifyContent: 'flex-end' }} ref={ref => {
           this.container = ref;
