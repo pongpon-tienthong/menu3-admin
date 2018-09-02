@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import SideDrawerList from "./SideDrawerList";
 
 import classNames from 'classnames';
@@ -25,9 +25,6 @@ const styles = theme => ({
     flexDirection: 'column',
     height: '100vh',
   },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-  },
   toolbarIcon: {
     display: 'flex',
     alignItems: 'center',
@@ -38,37 +35,28 @@ const styles = theme => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     backgroundColor: theme.palette.common.white,
-    boxShadow: 'none',
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
+    boxShadow: 'none'
   },
-  appBar2: {
-    zIndex: theme.zIndex.drawer - 1,
-    backgroundColor: theme.palette.common.white,
-    boxShadow: 'none', //TODO: Add boxShadow when scoll
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: '100%',
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+  appBarTitle: {
+    flexGrow: 1,
   },
   menuButton: {
     marginLeft: 12,
     marginRight: 12,
   },
-  menuButtonHidden: {
-    display: 'none',
-  },
-  title: {
+  drawerAndLowerBarWrapper: {
     flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  lowerAppBar: {
+    zIndex: theme.zIndex.drawer - 1,
+    backgroundColor: theme.palette.common.white,
+    boxShadow: 'none', //TODO: Add boxShadow when scoll
+    transition: theme.transitions.create(['width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
   drawerPaper: {
     position: 'relative',
@@ -91,11 +79,31 @@ const styles = theme => ({
       width: theme.spacing.unit * 9,
     },
   },
-  appBarSpacer: theme.mixins.toolbar,
+  lowerAppBarShift: {
+    width: '100%',
+    transition: theme.transitions.create(['width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  lowerBarAndContentWrapper: {
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column'
+  },
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
     overflow: 'auto',
+  },
+  formContainer: {
+    visibility: 'hidden',
+    width: '100%',
+    position: 'fixed',
+    zIndex: 1500,
+    bottom: 0,
+    display: 'flex',
+    justifyContent: 'flex-end'
   },
   alert: {
     padding: theme.spacing.unit,
@@ -109,35 +117,34 @@ const styles = theme => ({
 });
 
 class Layout extends Component {
-  container = null;
+  formContainer = null;
 
   state = {
-    open: false,
-    show: false
+    openDrawer: false,
+    showForm: false
   };
 
   handleClick = () => {
-    if (!this.state.show) {
-      this.setState({ show: true });
+    if (!this.state.showForm) {
+      this.setState({ showForm: true });
     }
   };
 
-  // TODO: properly handle closing the Restaurant form
-  handleClose = () => {
-    this.setState({ show: false });
+  // TODO: properly handle closing the form using Redux
+  handleFormClose = () => {
+    this.setState({ showForm: false });
   };
 
   handleDrawerOpen = () => {
-    this.setState(state => ({ open: !state.open }));
+    this.setState(state => ({ openDrawer: !state.openDrawer }));
   };
 
   handleDrawerClose = () => {
-    this.setState({ open: false });
+    this.setState({ openDrawer: false });
   };
 
   render() {
     const { classes } = this.props;
-    const { show } = this.state;
 
     return (
       <div className={classes.root}>
@@ -145,49 +152,54 @@ class Layout extends Component {
           position="static"
           className={classes.appBar}
         >
-          <Toolbar disableGutters={true} className={classes.toolbar}>
+          <Toolbar disableGutters={true}>
             <IconButton
               color="inherit"
               aria-label="Open drawer"
               onClick={this.handleDrawerOpen}
-              className={classNames(
-                classes.menuButton
-              )}
+              className={classes.menuButton}
             >
               <MenuIcon />
             </IconButton>
-            <img className={classes.logo} src={menu3Logo} />
-            <Typography variant="title" color="inherit" noWrap className={classes.title}>
+            <img
+              className={classes.logo}
+              src={menu3Logo}
+              alt="Menu3 Logo"
+            />
+            <Typography
+              variant="title"
+              color="inherit"
+              className={classes.appBarTitle}
+              noWrap
+            >
               Menu3 Admin
             </Typography>
           </Toolbar>
           <Divider />
         </AppBar>
-        <div style={{
-          flexGrow: 1,
-          display: 'flex',
-          flexDirection: 'row'
-        }}>
+        <div className={classes.drawerAndLowerBarWrapper}>
           <Drawer
             variant="permanent"
             classes={{
-              paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+              paper: classNames(
+                classes.drawerPaper,
+                !this.state.openDrawer && classes.drawerPaperClose
+              ),
             }}
-            open={this.state.open}
+            open={this.state.openDrawer}
           >
             <List>
               <SideDrawerList />
             </List>
           </Drawer>
-          <div style={{
-            flexGrow: 1,
-            display: 'flex',
-            flexDirection: 'column'
-          }}>
+          <div className={classes.lowerBarAndContentWrapper}>
             <AppBar
               position="static"
               color="default"
-              className={classNames(classes.appBar2, this.state.open && classes.appBarShift)}
+              className={
+                classNames(classes.lowerAppBar,
+                  this.state.openDrawer && classes.lowerAppBarShift
+                )}
             >
               <Toolbar variant='dense'>
                 <Button onClick={this.handleClick}>Create a Restaurant</Button>
@@ -196,9 +208,9 @@ class Layout extends Component {
             </AppBar>
             <main className={classes.content}>
               <div>
-                {show ? (
-                  <Portal container={this.container}>
-                    <RestaurantForm onCloseRestaurantForm={this.handleClose} />
+                {this.state.showForm ? (
+                  <Portal container={this.formContainer}>
+                    <RestaurantForm onCloseRestaurantForm={this.handleFormClose} />
                   </Portal>
                 ) : null}
               </div>
@@ -206,9 +218,11 @@ class Layout extends Component {
             </main>
           </div>
         </div>
-        <div style={{ visibility: 'hidden', width: '100%', position: 'fixed', zIndex: 1500, bottom: 0, display: 'flex', justifyContent: 'flex-end' }} ref={ref => {
-          this.container = ref;
-        }} />
+        <div
+          className={classes.formContainer}
+          ref={ref => {
+            this.formContainer = ref;
+          }} />
       </div>
     );
   }

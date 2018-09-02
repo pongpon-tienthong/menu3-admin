@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
@@ -10,11 +9,13 @@ import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import { Minimize, Close } from '@material-ui/icons';
 
+import blue from '@material-ui/core/colors/blue' //TODO: Create a button component
+
 const styles = theme => ({
   cardHeader: {
     position: 'relative',
-    color: theme.palette.primary.contrastText,
-    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white,
+    backgroundColor: theme.palette.grey[800],
     paddingTop: theme.spacing.unit / 2,
     paddingBottom: theme.spacing.unit / 2,
     cursor: 'pointer'
@@ -43,6 +44,11 @@ const styles = theme => ({
   button: {
     marginTop: theme.spacing.unit * 3,
     marginLeft: theme.spacing.unit,
+    backgroundColor: blue[500],
+    color: theme.palette.common.white,
+    '&:hover': {
+      backgroundColor: blue[800]
+    }
   },
   cardHeaderAction: {
     marginTop: 0
@@ -92,7 +98,7 @@ class RestaurantForm extends Component {
               </Fragment>
             }
             titleTypographyProps={{
-              variant: "title",
+              variant: "body2",
               color: "inherit"
             }}
             onClick={this.handleMinimize}
@@ -167,7 +173,6 @@ class RestaurantForm extends Component {
               <div className={classes.buttons}>
                 <Button
                   variant="contained"
-                  color="primary"
                   onClick={this.handleNext}
                   className={classes.button}
                 >
