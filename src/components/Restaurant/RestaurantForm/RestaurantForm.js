@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
@@ -7,11 +8,23 @@ import TextField from '@material-ui/core/TextField';
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
-import { Minimize, Close } from '@material-ui/icons';
+import { Maximize, Minimize, Close } from '@material-ui/icons';
 
 import blue from '@material-ui/core/colors/blue' //TODO: Create a button component
 
 const styles = theme => ({
+  restaurantFormlayout: {
+    width: 600,
+    visibility: 'visible',
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
+    [theme.breakpoints.up(theme.breakpoints.values.sm + theme.spacing.unit * 2 * 2)]: {
+      width: theme.breakpoints.values.sm
+    },
+  },
+  card: {
+    borderRadius: '4px 4px 0 0'
+  },
   cardHeader: {
     position: 'relative',
     color: theme.palette.common.white,
@@ -20,17 +33,17 @@ const styles = theme => ({
     paddingBottom: theme.spacing.unit / 2,
     cursor: 'pointer'
   },
-  layout: {
-    width: 'auto',
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
-      width: 500
-    },
+  cardHeaderIcon: {
+    padding: 8,
+    minWidth: 40,
+    fontSize: 20
+  },
+  minimizeWidth: {
+    width: 300
   },
   paper: {
     padding: theme.spacing.unit * 2,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
+    [theme.breakpoints.up(theme.breakpoints.values.sm + theme.spacing.unit * 3 * 2)]: {
       padding: theme.spacing.unit * 3,
     },
   },
@@ -57,20 +70,18 @@ const styles = theme => ({
 
 class RestaurantForm extends Component {
   state = {
-    minimize: false,
-    restaurantFormWidth: '500px'
+    minimize: false
   }
 
-  handleNext = () => {
-    console.log('handleNext');
+  handleCreateRestaurant = () => {
+    console.log('handleCreateRestaurant');
   };
 
   handleMinimize = e => {
     e.stopPropagation();
 
     this.setState(state => ({
-      minimize: !state.minimize,
-      restaurantFormWidth: state.minimize ? '500px' : '300px'
+      minimize: !state.minimize
     }));
   }
 
@@ -79,20 +90,30 @@ class RestaurantForm extends Component {
 
     return (
       <div
-        style={{ visibility: 'visible', width: this.state.restaurantFormWidth, backgroundColor: 'transparent' }}
-        className={classes.layout}
+        className={
+          classNames(classes.restaurantFormlayout,
+            this.state.minimize && classes.minimizeWidth
+          )}
       >
-        <Card style={{ borderRadius: '4px 4px 0 0' }}>
+        <Card className={classes.card}>
           <CardHeader
-            className={classes.cardHeader}
             title="New Restaurant"
+            className={classes.cardHeader}
             classes={{ action: classes.cardHeaderAction }}
             action={
               <Fragment>
-                <Button style={{ padding: '8px', minWidth: '40px', fontSize: '20px' }} color="inherit" onClick={this.handleMinimize}>
-                  <Minimize fontSize='inherit' />
+                <Button
+                  className={classes.cardHeaderIcon}
+                  color="inherit"
+                  onClick={this.handleMinimize}
+                >
+                  {this.state.minimize ? <Maximize fontSize='inherit' /> : <Minimize fontSize='inherit' />}
                 </Button>
-                <Button style={{ padding: '8px', minWidth: '40px', fontSize: '20px' }} color="inherit" onClick={this.props.onCloseRestaurantForm}>
+                <Button
+                  className={classes.cardHeaderIcon}
+                  color="inherit"
+                  onClick={this.props.onCloseRestaurantForm}
+                >
                   <Close fontSize='inherit' />
                 </Button>
               </Fragment>
@@ -173,7 +194,7 @@ class RestaurantForm extends Component {
               <div className={classes.buttons}>
                 <Button
                   variant="contained"
-                  onClick={this.handleNext}
+                  onClick={this.handleCreateRestaurant}
                   className={classes.button}
                 >
                   Create
