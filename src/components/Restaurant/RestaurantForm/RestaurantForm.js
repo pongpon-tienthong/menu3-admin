@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Card from "@material-ui/core/Card";
@@ -10,7 +9,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import { Maximize, Minimize, Close } from '@material-ui/icons';
 
-import blue from '@material-ui/core/colors/blue' //TODO: Create a button component
+import CustomButton from "../../UI/CumtomButton/CustomButton";
 
 const styles = theme => ({
   restaurantFormlayout: {
@@ -54,14 +53,9 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
   },
-  button: {
+  createButton: {
     marginTop: theme.spacing.unit * 3,
-    marginLeft: theme.spacing.unit,
-    backgroundColor: blue[500],
-    color: theme.palette.common.white,
-    '&:hover': {
-      backgroundColor: blue[800]
-    }
+    marginLeft: theme.spacing.unit
   },
   cardHeaderAction: {
     marginTop: 0
@@ -102,20 +96,20 @@ class RestaurantForm extends Component {
             classes={{ action: classes.cardHeaderAction }}
             action={
               <Fragment>
-                <Button
-                  className={classes.cardHeaderIcon}
+                <CustomButton
                   color="inherit"
-                  onClick={this.handleMinimize}
+                  className={classes.cardHeaderIcon}
+                  clicked={this.handleMinimize}
                 >
                   {this.state.minimize ? <Maximize fontSize='inherit' /> : <Minimize fontSize='inherit' />}
-                </Button>
-                <Button
-                  className={classes.cardHeaderIcon}
+                </CustomButton>
+                <CustomButton
                   color="inherit"
-                  onClick={this.props.onCloseRestaurantForm}
+                  className={classes.cardHeaderIcon}
+                  clicked={this.props.onCloseRestaurantForm}
                 >
                   <Close fontSize='inherit' />
-                </Button>
+                </CustomButton>
               </Fragment>
             }
             titleTypographyProps={{
@@ -192,13 +186,14 @@ class RestaurantForm extends Component {
                 </Grid>
               </Grid>
               <div className={classes.buttons}>
-                <Button
+                <CustomButton
                   variant="contained"
-                  onClick={this.handleCreateRestaurant}
-                  className={classes.button}
+                  btnType="blue"
+                  clicked={this.handleCreateRestaurant}
+                  className={classes.createButton}
                 >
                   Create
-              </Button>
+              </CustomButton>
               </div>
             </CardContent>
           }
