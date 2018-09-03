@@ -11,10 +11,10 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Portal from '@material-ui/core/Portal';
-import Button from '@material-ui/core/Button';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import RestaurantForm from "../Restaurant/RestaurantForm/RestaurantForm";
+import CustomButton from "../UI/CumtomButton/CustomButton";
 import menu3Logo from "../../asset/images/menu3_logo.png";
 
 const drawerWidth = 240;
@@ -202,7 +202,12 @@ class Layout extends Component {
                 )}
             >
               <Toolbar variant='dense'>
-                <Button onClick={this.handleClick}>Create a Restaurant</Button>
+                <CustomButton
+                  btnType='blue'
+                  clicked={this.handleClick}
+                >
+                  Create Restaurant
+                </CustomButton>
               </Toolbar>
               <Divider />
             </AppBar>
