@@ -59,6 +59,9 @@ const styles = theme => ({
   },
   cardHeaderAction: {
     marginTop: 0
+  },
+  textField: {
+    padding: theme.spacing.unit
   }
 });
 
@@ -120,15 +123,15 @@ class RestaurantForm extends Component {
           />
           {this.state.minimize ? null :
             <CardContent className={classes.paper}>
-              <Grid container spacing={24}>
+              <Grid container spacing={16}>
                 <Grid item xs={12}>
                   <TextField
-                    required
                     id="name"
                     name="name"
                     label="Restaurant name"
-                    fullWidth
                     autoComplete="off"
+                    fullWidth
+                    required
                   />
                 </Grid>
                 <Grid item xs={12}>

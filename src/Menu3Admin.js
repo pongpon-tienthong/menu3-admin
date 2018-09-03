@@ -13,6 +13,13 @@ import 'typeface-roboto'
 const theme = createMuiTheme({
   palette: {
     primary: grey
+  },
+  overrides: {
+    MuiFormLabel: {
+      root: {
+        fontSize: '0.875rem'
+      },
+    }
   }
 });
 

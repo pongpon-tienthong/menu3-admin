@@ -206,17 +206,11 @@ class Layout extends Component {
             >
               <Toolbar variant='dense'>
                 <CustomButton
-                  btnType='primary'
+                  btnType="primary"
                   className={classes.lowerBarButton}
                   clicked={this.handleClick}
                 >
                   Create Restaurant
-                </CustomButton>
-                <CustomButton
-                  btnType='danger'
-                  className={classes.lowerBarButton}
-                >
-                  Delete
                 </CustomButton>
               </Toolbar>
               <Divider />
