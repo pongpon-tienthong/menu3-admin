@@ -16,16 +16,16 @@ const CustomButton = props => {
 
   let btnColor;
   switch (props.btnType) {
-    case 'blue':
+    case 'primary':
       btnColor = blue
       break;
-    case 'red':
+    case 'danger':
       btnColor = red
       break;
-    case 'green':
+    case 'success':
       btnColor = green
       break;
-    case 'grey':
+    case 'info':
       btnColor = grey
       break;
     default:

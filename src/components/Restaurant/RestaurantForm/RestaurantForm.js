@@ -188,7 +188,7 @@ class RestaurantForm extends Component {
               <div className={classes.buttons}>
                 <CustomButton
                   variant="contained"
-                  btnType="blue"
+                  btnType="primary"
                   clicked={this.handleCreateRestaurant}
                   className={classes.createButton}
                 >
