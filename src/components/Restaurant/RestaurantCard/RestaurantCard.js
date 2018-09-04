@@ -35,21 +35,21 @@ const styles = theme => ({
 });
 
 const restaurantCard = props => {
-  const { classes, theme } = props;
+  const { classes } = props;
 
   return (
     <Grid item xs={12} sm={6}>
       <Card className={classes.card}>
         <CardMedia
           className={classes.cover}
-          image="https://material-ui.com/static/images/cards/live-from-space.jpg"
+          image={props.restaurant.imgSrc}
         />
         <div className={classes.details}>
           <CardContent className={classes.content}>
-            <Typography variant="title">Maize Maxican Grill</Typography>
+            <Typography variant="title">{props.restaurant.name}</Typography>
 
             <Typography variant="subheading" color="textSecondary">
-              <AddressIcon /> 911 S Locust St, Champaign, IL 61820
+              <AddressIcon /> {props.restaurant.address1} {props.restaurant.address2}, {props.restaurant.city}, {props.restaurant.state}, {props.restaurant.zip} 
           </Typography>
           </CardContent>
           <div className={classes.controls}>
