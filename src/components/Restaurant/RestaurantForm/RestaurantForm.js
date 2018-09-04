@@ -94,7 +94,7 @@ class RestaurantForm extends Component {
       >
         <Card className={classes.card}>
           <CardHeader
-            title="New Restaurant"
+            title="NEW RESTAURANT"
             className={classes.cardHeader}
             classes={{ action: classes.cardHeaderAction }}
             action={

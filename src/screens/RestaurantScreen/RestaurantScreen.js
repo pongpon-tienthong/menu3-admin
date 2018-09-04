@@ -1,12 +1,28 @@
 import React, { Component, Fragment } from 'react';
 
-class RestaurantScreen extends Component {
+import Grid from '@material-ui/core/Grid';
 
+import RestaurantCard from "../../components/Restaurant/RestaurantCard/RestaurantCard";
+
+
+
+class RestaurantScreen extends Component {
   render() {
     return (
-      <Fragment>
-        RESTAURANT SCREEN
-      </Fragment>
+      <Grid container spacing={16}>
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+      </Grid>
     );
   }
 }

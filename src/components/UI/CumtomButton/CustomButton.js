@@ -10,7 +10,6 @@ import grey from '@material-ui/core/colors/grey';
 const CustomButton = props => {
 
   let btnStyle = {
-    textTransform: 'none',
     color: props.theme.palette.common.white,
     ...props.styles
   };
