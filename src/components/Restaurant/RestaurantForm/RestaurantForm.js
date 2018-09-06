@@ -76,7 +76,10 @@ const styles = theme => ({
     borderWidth: 5,
     borderColor: theme.palette.grey[400],
     borderStyle: 'dashed',
-    borderRadius: 5
+    borderRadius: 5,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   previewImage: {
     width: 150,
@@ -251,7 +254,7 @@ class RestaurantForm extends Component {
                         </Fragment>
                       )
                     }) :
-                      <Dropzone multiple={false} accept=".jpeg, .png" className={classNames(classes.dropZone, classes.centerChild)} onDrop={imageFiles => this.handleDropFile(imageFiles)}>
+                      <Dropzone multiple={false} accept=".jpeg, .png" className={classes.dropZone} onDrop={imageFiles => this.handleDropFile(imageFiles)}>
                         <AddPhotoAlternate className={classes.addPhotoIcon} />
                       </Dropzone>
                     }
