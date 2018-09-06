@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Menu3Admin from './Menu3Admin';
 import registerServiceWorker from './registerServiceWorker';
+import configureStore from "./store/configureStore"; 
+import { Provider } from "react-redux";
 
-ReactDOM.render(<Menu3Admin />, document.getElementById('root'));
+const store = configureStore();
+
+ReactDOM.render(<Provider store={store}><Menu3Admin /></Provider>, document.getElementById('root'));
 registerServiceWorker();

@@ -9,13 +9,15 @@ import grey from '@material-ui/core/colors/grey';
 
 const CustomButton = props => {
 
+  const { btnType, clicked, ...restProps } = props;
+
   let btnStyle = {
-    color: props.theme.palette.common.white,
-    ...props.styles
+    color: restProps.theme.palette.common.white,
+    ...restProps.styles
   };
 
   let btnColor;
-  switch (props.btnType) {
+  switch (btnType) {
     case 'primary':
       btnColor = blue
       break;
@@ -45,11 +47,11 @@ const CustomButton = props => {
   return (
     <Button
       style={btnStyle}
-      onClick={props.clicked}
+      onClick={clicked}
       color="inherit"
-      {...props}
+      {...restProps}
     >
-      {props.children}
+      {restProps.children}
     </Button>
   )
 }
