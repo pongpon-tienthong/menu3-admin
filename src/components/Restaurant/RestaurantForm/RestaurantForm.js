@@ -82,16 +82,15 @@ const styles = theme => ({
     width: 150,
     height: 150,
   },
-  centerChild: {
+  imageWrapper: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'center',
     position: 'relative'
   },
   deleteButton: {
     position: 'absolute',
-    right: 0,
-    // bottom: 0
+    right: 0
   }
 });
 
@@ -166,7 +165,7 @@ class RestaurantForm extends Component {
           />
           {this.state.minimize ? null :
             <CardContent className={classes.paper}>
-              <Grid container spacing={8}>
+              <Grid container spacing={4}>
                 <Grid item xs={12}>
                   <TextField
                     id="name"
@@ -196,7 +195,7 @@ class RestaurantForm extends Component {
                     autoComplete="billing address-line2"
                   />
                 </Grid>
-                <Grid item container spacing={8} xs={12} sm={6}>
+                <Grid item container spacing={4} xs={12} sm={6}>
                   <Grid item xs={12}>
                     <TextField
                       required
@@ -234,7 +233,7 @@ class RestaurantForm extends Component {
                 </Grid>
 
                 <Grid item container spacing={8} xs={12} sm={6}>
-                  <Grid item xs={12} className={classes.centerChild}>
+                  <Grid item xs={12} className={classes.imageWrapper}>
                     {this.state.imageFiles ? this.state.imageFiles.map((file) => {
                       return (
                         <Fragment key={file.name} >
