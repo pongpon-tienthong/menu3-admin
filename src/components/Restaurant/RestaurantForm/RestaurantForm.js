@@ -93,7 +93,8 @@ const styles = theme => ({
   },
   deleteButton: {
     position: 'absolute',
-    right: 0
+    right: 0,
+    alignSelf: 'center'
   }
 });
 
