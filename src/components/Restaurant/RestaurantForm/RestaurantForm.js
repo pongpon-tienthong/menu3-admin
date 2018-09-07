@@ -12,6 +12,9 @@ import Dropzone from 'react-dropzone';
 
 import CustomButton from "../../UI/CumtomButton/CustomButton";
 
+//TODO: Change the state textfield to select
+import getStates from "./states";
+
 const styles = theme => ({
   restaurantFormlayout: {
     width: 600,
@@ -100,6 +103,15 @@ const styles = theme => ({
 class RestaurantForm extends Component {
   state = {
     minimize: false,
+    restaurantFormData: {
+      name: '',
+      address1: '',
+      address2: '',
+      city: '',
+      state: '',
+      zip: '',
+      payingPriority: 0
+    },
     imageFiles: null
   }
 
@@ -125,6 +137,22 @@ class RestaurantForm extends Component {
     this.setState(state => ({
       minimize: !state.minimize
     }));
+  }
+
+  handleFormChange = (e, identifier) => {
+    const restaurantFormData = this.state.restaurantFormData;
+    restaurantFormData[identifier] = e.target.value;
+
+    this.setState(state => {
+      return {
+        ...state,
+        restaurantFormData: restaurantFormData
+      }
+    });
+  }
+
+  handleSubmit = () => {
+    
   }
 
   render() {
@@ -168,7 +196,7 @@ class RestaurantForm extends Component {
           />
           {this.state.minimize ? null :
             <CardContent className={classes.paper}>
-              <Grid container spacing={4}>
+              <Grid container spacing={8}>
                 <Grid item xs={12}>
                   <TextField
                     id="name"
@@ -177,6 +205,8 @@ class RestaurantForm extends Component {
                     autoComplete="off"
                     fullWidth
                     required
+                    value={this.state.restaurantFormData.name}
+                    onChange={(event) => this.handleFormChange(event, "name")}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -187,18 +217,22 @@ class RestaurantForm extends Component {
                     label="Address line 1"
                     fullWidth
                     autoComplete="billing address-line1"
+                    value={this.state.restaurantFormData.address1}
+                    onChange={(event) => this.handleFormChange(event, "address1")}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    id="addiress2"
-                    name="addiress2"
+                    id="address2"
+                    name="address2"
                     label="Address line 2"
                     fullWidth
                     autoComplete="billing address-line2"
+                    value={this.state.restaurantFormData.address2}
+                    onChange={(event) => this.handleFormChange(event, "address2")}
                   />
                 </Grid>
-                <Grid item container spacing={4} xs={12} sm={6}>
+                <Grid item container spacing={8} xs={12} sm={6}>
                   <Grid item xs={12}>
                     <TextField
                       required
@@ -207,10 +241,19 @@ class RestaurantForm extends Component {
                       label="City"
                       fullWidth
                       autoComplete="billing address-level2"
+                      value={this.state.restaurantFormData.city}
+                      onChange={(event) => this.handleFormChange(event, "city")}
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField id="state" name="state" label="State/Province/Region" fullWidth />
+                    <TextField
+                      id="state"
+                      name="state"
+                      label="State"
+                      fullWidth
+                      value={this.state.restaurantFormData.state}
+                      onChange={(event) => this.handleFormChange(event, "state")}
+                    />
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
@@ -220,6 +263,8 @@ class RestaurantForm extends Component {
                       label="Zip / Postal code"
                       fullWidth
                       autoComplete="billing postal-code"
+                      value={this.state.restaurantFormData.zip}
+                      onChange={(event) => this.handleFormChange(event, "zip")}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -231,6 +276,8 @@ class RestaurantForm extends Component {
                       type="number"
                       autoComplete="off"
                       fullWidth
+                      value={this.state.restaurantFormData.payingPriority}
+                      onChange={(event) => this.handleFormChange(event, "payingPriority")}
                     />
                   </Grid>
                 </Grid>
@@ -267,6 +314,7 @@ class RestaurantForm extends Component {
                   btnType="primary"
                   clicked={this.handleCreateRestaurant}
                   className={classes.createButton}
+                  clicked={this.handleSubmit}
                 >
                   Create
               </CustomButton>

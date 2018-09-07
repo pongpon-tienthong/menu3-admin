@@ -17,3 +17,7 @@ export const getRestaurants = () => {
       });
   }
 };
+
+export const createRestaurant = () => {
+
+};
