@@ -28,12 +28,11 @@ export const getRestaurants = () => {
 export const createRestaurant = (newRestaurant, imageFile) => {
   return dispatch => {
     axios.post('/restaurants', newRestaurant).then(res => {
-      console.log(res.data);
+      console.log(1, res.data);
 
-      const imageFormData = {
-        file: imageFile,
-        createdBy: 'Frontend'
-      }
+      const imageFormData = new FormData();
+      imageFormData.set('file', imageFile);
+      imageFormData.set('createdBy', 'Frontend');
 
       axios({
         method: 'post',
@@ -41,6 +40,8 @@ export const createRestaurant = (newRestaurant, imageFile) => {
         data: imageFormData,
         config: { headers: { 'Content-Type': 'multipart/form-data' } }
       }).then(postImageRes => {
+        console.log(2, postImageRes.data);
+
         axios
           .get('/restaurants')
           .then(res => {

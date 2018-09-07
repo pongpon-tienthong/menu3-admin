@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from "react-redux";
 import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -10,6 +11,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import { Maximize, Minimize, Close, AddPhotoAlternate, Delete } from '@material-ui/icons';
 import Dropzone from 'react-dropzone';
 
+import { createRestaurant } from "../../../store/actions";
 import CustomButton from "../../UI/CumtomButton/CustomButton";
 
 //TODO: Change the state textfield to select
@@ -130,8 +132,8 @@ class RestaurantForm extends Component {
   }
 
   handleCreateRestaurant = () => {
-    console.log('handleCreateRestaurant');
     console.log(this.state.restaurantFormData);
+    this.props.createRestaurant(this.state.restaurantFormData, this.state.imageFiles[0]);
   };
 
   handleMinimize = e => {
@@ -353,4 +355,10 @@ class RestaurantForm extends Component {
   }
 }
 
-export default withStyles(styles)(RestaurantForm);
+const mapDispatchToProps = dispatch => {
+  return {
+    createRestaurant: (newRestaurant, imageFile) => dispatch(createRestaurant(newRestaurant, imageFile)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(withStyles(styles)(RestaurantForm));
