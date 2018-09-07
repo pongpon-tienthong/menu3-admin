@@ -7,7 +7,6 @@ import TextField from '@material-ui/core/TextField';
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
-import IconButton from "@material-ui/core/IconButton";
 import { Maximize, Minimize, Close, AddPhotoAlternate, Delete } from '@material-ui/icons';
 import Dropzone from 'react-dropzone';
 
@@ -241,7 +240,7 @@ class RestaurantForm extends Component {
                     {this.state.imageFiles ? this.state.imageFiles.map((file) => {
                       return (
                         <Fragment key={file.name} >
-                          <img className={classes.previewImage} src={file.preview} />
+                          <img className={classes.previewImage} src={file.preview} alt={file.name} />
                           <CustomButton
                             variant="fab"
                             mini
