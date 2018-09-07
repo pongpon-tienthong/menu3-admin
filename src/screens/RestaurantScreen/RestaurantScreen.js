@@ -32,7 +32,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getRestaurants: () => dispatch(getRestaurants())
+    getRestaurants: () => dispatch(getRestaurants()),
   };
 };
 

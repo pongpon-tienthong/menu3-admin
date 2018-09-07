@@ -1,4 +1,4 @@
-import { GET_RESTAURANTS } from "./actionTypes";
+import { GET_RESTAURANTS, CREATE_RESTAURANT } from "./actionTypes";
 import axios from "../../axios";
 
 export const getRestaurantAsync = (restaurants) => {
@@ -6,7 +6,14 @@ export const getRestaurantAsync = (restaurants) => {
     type: GET_RESTAURANTS,
     restaurants: restaurants
   };
-}
+};
+
+export const createRestaurantAsync = (restaurants) => {
+  return {
+    type: CREATE_RESTAURANT,
+    restaurants: restaurants
+  };
+};
 
 export const getRestaurants = () => {
   return dispatch => {
@@ -18,6 +25,30 @@ export const getRestaurants = () => {
   }
 };
 
-export const createRestaurant = () => {
+export const createRestaurant = (newRestaurant, imageFile) => {
+  return dispatch => {
+    axios.post('/restaurants', newRestaurant).then(res => {
+      console.log(res.data);
 
+      const imageFormData = {
+        file: imageFile,
+        createdBy: 'Frontend'
+      }
+
+      axios({
+        method: 'post',
+        url: `/restaurants/${res.data.id}/image`,
+        data: imageFormData,
+        config: { headers: { 'Content-Type': 'multipart/form-data' } }
+      }).then(postImageRes => {
+        axios
+          .get('/restaurants')
+          .then(res => {
+            dispatch(createRestaurantAsync(res.data));
+          });
+      });
+    })
+
+
+  }
 };

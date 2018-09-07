@@ -110,7 +110,9 @@ class RestaurantForm extends Component {
       city: '',
       state: '',
       zip: '',
-      payingPriority: 0
+      payingPriority: 0,
+      longitude: 0,
+      latitude: 0
     },
     imageFiles: null
   }
@@ -129,6 +131,7 @@ class RestaurantForm extends Component {
 
   handleCreateRestaurant = () => {
     console.log('handleCreateRestaurant');
+    console.log(this.state.restaurantFormData);
   };
 
   handleMinimize = e => {
@@ -149,10 +152,6 @@ class RestaurantForm extends Component {
         restaurantFormData: restaurantFormData
       }
     });
-  }
-
-  handleSubmit = () => {
-    
   }
 
   render() {
@@ -216,7 +215,7 @@ class RestaurantForm extends Component {
                     name="address1"
                     label="Address line 1"
                     fullWidth
-                    autoComplete="billing address-line1"
+                    autoComplete="off"
                     value={this.state.restaurantFormData.address1}
                     onChange={(event) => this.handleFormChange(event, "address1")}
                   />
@@ -227,40 +226,42 @@ class RestaurantForm extends Component {
                     name="address2"
                     label="Address line 2"
                     fullWidth
-                    autoComplete="billing address-line2"
+                    autoComplete="off"
                     value={this.state.restaurantFormData.address2}
                     onChange={(event) => this.handleFormChange(event, "address2")}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="city"
+                    name="city"
+                    label="City"
+                    fullWidth
+                    autoComplete="off"
+                    value={this.state.restaurantFormData.city}
+                    onChange={(event) => this.handleFormChange(event, "city")}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    id="state"
+                    name="state"
+                    label="State"
+                    fullWidth
+                    autoComplete="off"
+                    value={this.state.restaurantFormData.state}
+                    onChange={(event) => this.handleFormChange(event, "state")}
                   />
                 </Grid>
                 <Grid item container spacing={8} xs={12} sm={6}>
                   <Grid item xs={12}>
                     <TextField
                       required
-                      id="city"
-                      name="city"
-                      label="City"
-                      fullWidth
-                      autoComplete="billing address-level2"
-                      value={this.state.restaurantFormData.city}
-                      onChange={(event) => this.handleFormChange(event, "city")}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      id="state"
-                      name="state"
-                      label="State"
-                      fullWidth
-                      value={this.state.restaurantFormData.state}
-                      onChange={(event) => this.handleFormChange(event, "state")}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
                       id="zip"
                       name="zip"
                       label="Zip / Postal code"
+                      type="number"
                       fullWidth
                       autoComplete="billing postal-code"
                       value={this.state.restaurantFormData.zip}
@@ -278,6 +279,32 @@ class RestaurantForm extends Component {
                       fullWidth
                       value={this.state.restaurantFormData.payingPriority}
                       onChange={(event) => this.handleFormChange(event, "payingPriority")}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      id="longitude"
+                      name="longitude"
+                      label="Longitude"
+                      type="number"
+                      autoComplete="off"
+                      fullWidth
+                      value={this.state.restaurantFormData.longitude}
+                      onChange={(event) => this.handleFormChange(event, "longitude")}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      id="latitude"
+                      name="latitude"
+                      label="Latitude"
+                      type="number"
+                      autoComplete="off"
+                      fullWidth
+                      value={this.state.restaurantFormData.latitude}
+                      onChange={(event) => this.handleFormChange(event, "latitude")}
                     />
                   </Grid>
                 </Grid>
@@ -314,7 +341,6 @@ class RestaurantForm extends Component {
                   btnType="primary"
                   clicked={this.handleCreateRestaurant}
                   className={classes.createButton}
-                  clicked={this.handleSubmit}
                 >
                   Create
               </CustomButton>
