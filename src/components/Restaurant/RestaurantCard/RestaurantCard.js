@@ -7,13 +7,13 @@ import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import AddressIcon from '@material-ui/icons/Room';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = theme => ({
   card: {
-    display: 'flex'
+    display: 'flex',
+    height: 150
   },
   details: {
     display: 'flex',
@@ -49,7 +49,7 @@ const restaurantCard = props => {
             <Typography variant="title">{props.restaurant.name}</Typography>
 
             <Typography variant="subheading" color="textSecondary">
-              <AddressIcon /> {props.restaurant.address1} {props.restaurant.address2}, {props.restaurant.city}, {props.restaurant.state}, {props.restaurant.zip}
+              {props.restaurant.address1} {props.restaurant.address2}, {props.restaurant.city}, {props.restaurant.state}, {props.restaurant.zip}
             </Typography>
           </CardContent>
           <div className={classes.controls}>
