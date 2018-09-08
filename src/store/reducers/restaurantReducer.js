@@ -8,11 +8,10 @@ const initialState = {
 
 const restaurantReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.GET_RESTAURANTS:
     case actionTypes.CREATE_RESTAURANT:
-    case actionTypes.DELETE_RESTAURANT:
       return {
         ...state,
+        showRestaurantForm: false,
         restaurants: action.restaurants
       };
     case actionTypes.SELECT_RESTAURANT:
@@ -21,6 +20,12 @@ const restaurantReducer = (state = initialState, action) => {
         selectedRestaurant: action.restaurant,
         showRestaurantForm: true
       }
+    case actionTypes.GET_RESTAURANTS:
+    case actionTypes.DELETE_RESTAURANT:
+      return {
+        ...state,
+        restaurants: action.restaurants
+      };
     case actionTypes.SHOW_RESTAURANT_FORM:
       return {
         ...state,
