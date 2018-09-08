@@ -56,7 +56,7 @@ const restaurantCard = props => {
             <IconButton aria-label="Edit" onClick={props.edited}>
               <EditIcon />
             </IconButton>
-            <IconButton aria-label="Delete">
+            <IconButton aria-label="Delete" onClick={props.deleted}>
               <DeleteIcon />
             </IconButton>
           </div>

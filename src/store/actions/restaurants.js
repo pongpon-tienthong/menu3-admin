@@ -3,7 +3,8 @@ import {
   CREATE_RESTAURANT,
   SELECT_RESTAURANT,
   SHOW_RESTAURANT_FORM,
-  HIDE_RESTAURANT_FORM
+  HIDE_RESTAURANT_FORM,
+  DELETE_RESTAURANT
 } from "./actionTypes";
 
 import axios from "../../axios";
@@ -18,6 +19,13 @@ export const getRestaurantAsync = restaurants => {
 export const createRestaurantAsync = restaurants => {
   return {
     type: CREATE_RESTAURANT,
+    restaurants: restaurants
+  };
+};
+
+export const deleteRestaurantAsync = restaurants => {
+  return {
+    type: DELETE_RESTAURANT,
     restaurants: restaurants
   };
 };
@@ -65,12 +73,23 @@ export const selectRestaurant = restaurant => {
 export const hideRestaurantForm = () => {
   return {
     type: HIDE_RESTAURANT_FORM
-  }
+  };
 };
-
 
 export const showRestaurantForm = () => {
   return {
     type: SHOW_RESTAURANT_FORM
-  }
+  };
+};
+
+export const deleteRestaurant = restaurantId => {
+  return dispatch => {
+    axios.delete(`/restaurants/${restaurantId}`).then(res => {
+      axios
+        .get('/restaurants')
+        .then(res => {
+          dispatch(deleteRestaurantAsync(res.data));
+        });
+    });
+  };
 };

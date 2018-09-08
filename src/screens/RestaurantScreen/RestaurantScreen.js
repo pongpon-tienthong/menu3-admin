@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { getRestaurants, selectRestaurant } from "../../store/actions";
+import {
+  getRestaurants,
+  selectRestaurant,
+  deleteRestaurant
+} from "../../store/actions";
 
 import Grid from '@material-ui/core/Grid';
 
@@ -13,7 +17,12 @@ class RestaurantScreen extends Component {
 
   render() {
     const restaurants = this.props.restaurants.map(
-      restaurant => <Restaurant key={restaurant.id} restaurant={restaurant} edited={() => this.props.selectRestaurant(restaurant)} />
+      restaurant => <Restaurant
+        key={restaurant.id}
+        restaurant={restaurant}
+        edited={() => this.props.selectRestaurant(restaurant)}
+        deleted={() => this.props.deleteRestaurant(restaurant.id)}
+      />
     );
 
     return (
@@ -33,7 +42,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getRestaurants: () => dispatch(getRestaurants()),
-    selectRestaurant: restaurant => dispatch(selectRestaurant(restaurant))
+    selectRestaurant: restaurant => dispatch(selectRestaurant(restaurant)),
+    deleteRestaurant: restaurantId => dispatch(deleteRestaurant(restaurantId))
   };
 };
 

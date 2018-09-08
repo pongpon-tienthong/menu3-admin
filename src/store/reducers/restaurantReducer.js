@@ -10,6 +10,7 @@ const restaurantReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_RESTAURANTS:
     case actionTypes.CREATE_RESTAURANT:
+    case actionTypes.DELETE_RESTAURANT:
       return {
         ...state,
         restaurants: action.restaurants
