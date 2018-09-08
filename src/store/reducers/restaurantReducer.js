@@ -1,7 +1,8 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-  restaurants: []
+  restaurants: [],
+  selectedRestaurant: null
 };
 
 const restaurantReducer = (state = initialState, action) => {
@@ -9,8 +10,18 @@ const restaurantReducer = (state = initialState, action) => {
     case actionTypes.GET_RESTAURANTS:
     case actionTypes.CREATE_RESTAURANT:
       return {
+        ...state,
         restaurants: action.restaurants
       };
+    case actionTypes.SELECT_RESTAURANT:
+
+      console.log('Hi');
+      console.log(action.restaurant);
+
+      return {
+        ...state,
+        selectedRestaurant: action.restaurant
+      }
 
     default:
       return state;

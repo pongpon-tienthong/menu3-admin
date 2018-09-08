@@ -1,1 +1,1 @@
-export { getRestaurants, createRestaurant } from './restaurants';
+export { getRestaurants, createRestaurant, selectRestaurant } from './restaurants';

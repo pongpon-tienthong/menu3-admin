@@ -49,11 +49,11 @@ const restaurantCard = props => {
             <Typography variant="title">{props.restaurant.name}</Typography>
 
             <Typography variant="subheading" color="textSecondary">
-              <AddressIcon /> {props.restaurant.address1} {props.restaurant.address2}, {props.restaurant.city}, {props.restaurant.state}, {props.restaurant.zip} 
-          </Typography>
+              <AddressIcon /> {props.restaurant.address1} {props.restaurant.address2}, {props.restaurant.city}, {props.restaurant.state}, {props.restaurant.zip}
+            </Typography>
           </CardContent>
           <div className={classes.controls}>
-            <IconButton aria-label="Edit">
+            <IconButton aria-label="Edit" onClick={props.edited}>
               <EditIcon />
             </IconButton>
             <IconButton aria-label="Delete">
