@@ -1,4 +1,11 @@
-import { GET_RESTAURANTS, CREATE_RESTAURANT, SELECT_RESTAURANT } from "./actionTypes";
+import {
+  GET_RESTAURANTS,
+  CREATE_RESTAURANT,
+  SELECT_RESTAURANT,
+  SHOW_RESTAURANT_FORM,
+  HIDE_RESTAURANT_FORM
+} from "./actionTypes";
+
 import axios from "../../axios";
 
 export const getRestaurantAsync = restaurants => {
@@ -54,3 +61,16 @@ export const selectRestaurant = restaurant => {
     restaurant: restaurant
   };
 }
+
+export const hideRestaurantForm = () => {
+  return {
+    type: HIDE_RESTAURANT_FORM
+  }
+};
+
+
+export const showRestaurantForm = () => {
+  return {
+    type: SHOW_RESTAURANT_FORM
+  }
+};

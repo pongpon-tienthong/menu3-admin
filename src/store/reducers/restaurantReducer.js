@@ -2,7 +2,8 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
   restaurants: [],
-  selectedRestaurant: null
+  selectedRestaurant: null,
+  showRestaurantForm: false
 };
 
 const restaurantReducer = (state = initialState, action) => {
@@ -14,15 +15,21 @@ const restaurantReducer = (state = initialState, action) => {
         restaurants: action.restaurants
       };
     case actionTypes.SELECT_RESTAURANT:
-
-      console.log('Hi');
-      console.log(action.restaurant);
-
       return {
         ...state,
-        selectedRestaurant: action.restaurant
+        selectedRestaurant: action.restaurant,
+        showRestaurantForm: true
       }
-
+    case actionTypes.SHOW_RESTAURANT_FORM:
+      return {
+        ...state,
+        showRestaurantForm: true
+      }
+    case actionTypes.HIDE_RESTAURANT_FORM:
+      return {
+        ...state,
+        showRestaurantForm: false
+      }
     default:
       return state;
   }

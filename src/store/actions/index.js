@@ -1,1 +1,7 @@
-export { getRestaurants, createRestaurant, selectRestaurant } from './restaurants';
+export {
+  getRestaurants,
+  createRestaurant,
+  selectRestaurant,
+  showRestaurantForm,
+  hideRestaurantForm
+} from './restaurants';

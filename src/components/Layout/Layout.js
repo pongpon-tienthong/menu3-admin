@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from "react-redux";
 import SideDrawerList from "./SideDrawerList";
 
 import classNames from 'classnames';
@@ -16,6 +17,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import RestaurantForm from "../Restaurant/RestaurantForm/RestaurantForm";
 import CustomButton from "../UI/CumtomButton/CustomButton";
 import menu3Logo from "../../asset/images/menu3_logo.png";
+import { showRestaurantForm, hideRestaurantForm } from "../../store/actions";
 
 const drawerWidth = 240;
 
@@ -123,19 +125,17 @@ class Layout extends Component {
   formContainer = null;
 
   state = {
-    openDrawer: false,
-    showForm: false
+    openDrawer: false
   };
 
   handleClick = () => {
-    if (!this.state.showForm) {
-      this.setState({ showForm: true });
+    if (!this.props.showForm) {
+      this.props.showRestaurantForm();
     }
   };
 
-  // TODO: properly handle closing the form using Redux
   handleFormClose = () => {
-    this.setState({ showForm: false });
+    this.props.hideRestaurantForm();
   };
 
   handleDrawerOpen = () => {
@@ -217,7 +217,7 @@ class Layout extends Component {
             </AppBar>
             <main className={classes.content}>
               <div>
-                {this.state.showForm ? (
+                {this.props.showForm ? (
                   <Portal container={this.formContainer}>
                     <RestaurantForm onCloseRestaurantForm={this.handleFormClose} />
                   </Portal>
@@ -237,4 +237,17 @@ class Layout extends Component {
   }
 }
 
-export default withStyles(styles)(Layout);
+const mapStateToProps = state => {
+  return {
+    showForm: state.restaurants.showRestaurantForm
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    showRestaurantForm: () => dispatch(showRestaurantForm()),
+    hideRestaurantForm: () => dispatch(hideRestaurantForm())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Layout));

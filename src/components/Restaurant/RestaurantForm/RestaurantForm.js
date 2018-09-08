@@ -132,7 +132,6 @@ class RestaurantForm extends Component {
   }
 
   handleCreateRestaurant = () => {
-    console.log(this.state.restaurantFormData);
     this.props.createRestaurant(this.state.restaurantFormData, this.state.imageFiles[0]);
   };
 
