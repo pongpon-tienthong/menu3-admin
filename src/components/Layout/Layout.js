@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 import SideDrawerList from "./SideDrawerList";
 
@@ -15,7 +16,8 @@ import Portal from '@material-ui/core/Portal';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import RestaurantForm from "../Restaurant/RestaurantForm/RestaurantForm";
-import CustomButton from "../UI/CumtomButton/CustomButton";
+import RestaurantScreenButtons from "./RestaurantScreenButtons";
+import MenuScreenButtons from "./MenuScreenButtons";
 import menu3Logo from "../../asset/images/menu3_logo.png";
 import { showRestaurantForm, hideRestaurantForm } from "../../store/actions";
 
@@ -115,9 +117,6 @@ const styles = theme => ({
     width: theme.spacing.unit * 3,
     height: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit
-  },
-  lowerBarButton: {
-    marginRight: theme.spacing.unit
   }
 });
 
@@ -205,13 +204,8 @@ class Layout extends Component {
                 )}
             >
               <Toolbar variant='dense'>
-                <CustomButton
-                  btnType="primary"
-                  className={classes.lowerBarButton}
-                  clicked={this.handleClick}
-                >
-                  Create Restaurant
-                </CustomButton>
+                <Route exact path="/" render={() => <RestaurantScreenButtons clicked={this.handleClick} />} />
+                <Route path="/restaurant/:restaurantId/menu" render={() => <MenuScreenButtons clicked={this.handleClick} />} />
               </Toolbar>
               <Divider />
             </AppBar>
