@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -53,9 +54,11 @@ const restaurantCard = props => {
             </Typography>
           </CardContent>
           <div className={classes.controls}>
-            <IconButton aria-label="Edit" onClick={props.edited}>
-              <EditIcon />
-            </IconButton>
+            <Link to={`/restaurant/${props.restaurant.id}/menu`}>
+              <IconButton aria-label="Edit">
+                <EditIcon />
+              </IconButton>
+            </Link>
             <IconButton aria-label="Delete" onClick={props.deleted}>
               <DeleteIcon />
             </IconButton>

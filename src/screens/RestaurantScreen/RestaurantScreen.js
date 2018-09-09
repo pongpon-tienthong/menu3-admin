@@ -20,7 +20,7 @@ class RestaurantScreen extends Component {
       restaurant => <Restaurant
         key={restaurant.id}
         restaurant={restaurant}
-        edited={() => this.props.selectRestaurant(restaurant)}
+        // edited={() => this.props.selectRestaurant(restaurant)}
         deleted={() => this.props.deleteRestaurant(restaurant.id)}
       />
     );
