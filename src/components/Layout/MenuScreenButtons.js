@@ -22,7 +22,7 @@ const menuScreenButtons = (props) => {
       >
         CREATE MENUITEM
       </CustomButton>
-      <CustomButton
+      {/* <CustomButton
         btnType="primary"
         className={classes.lowerBarButton}
         clicked={props.clicked}
@@ -35,7 +35,7 @@ const menuScreenButtons = (props) => {
         clicked={props.clicked}
       >
         DELETE RESTAURANT
-      </CustomButton>
+      </CustomButton> */}
     </Fragment>
   );
 };
