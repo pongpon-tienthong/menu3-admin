@@ -15,7 +15,7 @@ import { createRestaurant } from "../../../store/actions";
 import CustomButton from "../../UI/CumtomButton/CustomButton";
 
 //TODO: Change the state textfield to select
-import getStates from "./states";
+// import getStates from "./states";
 
 const styles = theme => ({
   restaurantFormlayout: {

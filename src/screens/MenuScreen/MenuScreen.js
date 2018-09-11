@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
 
@@ -42,4 +41,4 @@ const mapDispatchToProps = dispatch => {
   };
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MenuScreen));
+export default connect(mapStateToProps, mapDispatchToProps)(MenuScreen);

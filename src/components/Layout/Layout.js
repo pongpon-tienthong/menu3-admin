@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import SideDrawerList from "./SideDrawerList";
 
@@ -244,4 +244,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Layout));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Layout)));
