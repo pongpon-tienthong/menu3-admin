@@ -6,3 +6,7 @@ export {
   showRestaurantForm,
   hideRestaurantForm
 } from './restaurants';
+
+export {
+  getMenuItems
+} from './menuItems'

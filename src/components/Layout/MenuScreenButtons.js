@@ -5,7 +5,8 @@ import CustomButton from "../UI/CumtomButton/CustomButton";
 
 const styles = theme => ({
   lowerBarButton: {
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing.unit,
+    whiteSpace: 'nowrap'
   }
 });
 

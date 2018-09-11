@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import Grid from '@material-ui/core/Grid';
+
 import {
   getRestaurants,
   selectRestaurant,
   deleteRestaurant
 } from "../../store/actions";
-
-import Grid from '@material-ui/core/Grid';
 
 import Restaurant from "../../components/Restaurant/RestaurantCard/RestaurantCard";
 
@@ -47,4 +48,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RestaurantScreen);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RestaurantScreen));

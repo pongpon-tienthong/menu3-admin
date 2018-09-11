@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import { withStyles } from '@material-ui/core/styles';
@@ -69,4 +70,4 @@ const restaurantCard = props => {
   );
 };
 
-export default withStyles(styles, { withTheme: true })(restaurantCard);
+export default withRouter(withStyles(styles, { withTheme: true })(restaurantCard));

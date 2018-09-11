@@ -204,8 +204,8 @@ class Layout extends Component {
                 )}
             >
               <Toolbar variant='dense'>
-                <Route exact path="/" render={() => <RestaurantScreenButtons clicked={this.handleClick} />} />
                 <Route path="/restaurant/:restaurantId/menu" render={() => <MenuScreenButtons clicked={this.handleClick} />} />
+                <Route exact path="/" render={() => <RestaurantScreenButtons clicked={this.handleClick} />} />
               </Toolbar>
               <Divider />
             </AppBar>
