@@ -7,16 +7,25 @@ import CardActions from '@material-ui/core/CardActions';
 import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
+import Dropzone from 'react-dropzone';
+import { AddPhotoAlternate } from '@material-ui/icons';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const styles = theme => ({
   card: {
     display: 'flex',
-    height: 170
+    minHeight: 170
+  },
+  checkbox: {
+    position: 'absolute',
+    top: 0,
+    right: 0
   },
   details: {
     flexGrow: 1,
@@ -27,8 +36,8 @@ const styles = theme => ({
     flex: '1 0 auto',
   },
   cover: {
-    width: 170,
-    height: 170,
+    minWidth: 170,
+    minHeight: 170,
   },
   actions: {
     display: 'flex',
@@ -66,55 +75,36 @@ class MenuItemCard extends Component {
 
     return (
       <Grid item xs={12} sm={6}>
-        <Card>
-          <div className={classes.card}>
-            <CardMedia
-              className={classes.cover}
-              image={this.props.menuItem.imgSrc}
-            />
-            <div className={classes.details}>
-              <CardContent className={classes.content}>
-                <Typography variant="title">{this.props.menuItem.name}</Typography>
-                <Typography variant="subheading" color="textSecondary">
-                  {`Price: ${this.props.menuItem.price}`}
-                </Typography>
+        <Card className={classes.card}>
+          <CardMedia
+            className={classes.cover}
+            image={this.props.menuItem.imgSrc}
+          />
+          <div className={classes.details}>
+            <CardContent className={classes.content}>
+              <Typography variant="title">{this.props.menuItem.name}</Typography>
+              {this.props.menuItem.description ?
                 <Typography variant="subheading" color="textSecondary">
                   {`Description: ${this.props.menuItem.description}`}
                 </Typography>
-              </CardContent>
-              <CardActions className={classes.actions} disableActionSpacing>
-                <IconButton
-                  className={classnames(classes.expand, {
-                    [classes.expandOpen]: this.state.expanded,
-                  })}
-                  onClick={this.handleExpandClick}
-                  aria-expanded={this.state.expanded}
-                  aria-label="Show more"
-                >
-                  <ExpandMoreIcon />
-                </IconButton>
-              </CardActions>
-              {/* <div className={classes.controls}>
-              <IconButton aria-label="Edit" onClick={this.props.edited}>
-                <EditIcon />
-              </IconButton>
-              <IconButton aria-label="Delete" onClick={this.props.deleted}>
-                <DeleteIcon />
-              </IconButton>
-            </div> */}
-            </div>
-          </div>
-          <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              <Typography paragraph variant="body2">
-                Method:
-              </Typography>
-              <Typography paragraph>
-                Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-                minutes.
-            </Typography>
+                : null}
+              {this.props.menuItem.category ?
+                <Typography variant="subheading" color="textSecondary">
+                  {`Category: ${this.props.menuItem.category}`}
+                </Typography>
+                : null}
+              {this.props.menuItem.price ?
+                <Typography variant="subheading" color="textSecondary">
+                  {`Price: ${this.props.menuItem.price}`}
+                </Typography>
+                : null}
+              {this.props.menuItem.priority ?
+                <Typography variant="subheading" color="textSecondary">
+                  {`Priority: ${this.props.menuItem.priority}`}
+                </Typography>
+                : null}
             </CardContent>
-          </Collapse>
+          </div>
         </Card>
       </Grid>
     );
