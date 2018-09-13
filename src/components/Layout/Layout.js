@@ -16,6 +16,7 @@ import Portal from '@material-ui/core/Portal';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import RestaurantForm from "../Restaurant/RestaurantForm/RestaurantForm";
+import MenuItemForm from "../MenuItem/MenuItemForm/MenuItemForm";
 import RestaurantScreenButtons from "./RestaurantScreenButtons";
 import MenuScreenButtons from "./MenuScreenButtons";
 import menu3Logo from "../../asset/images/menu3_logo.png";
@@ -213,7 +214,8 @@ class Layout extends Component {
               <div>
                 {this.props.showForm ? (
                   <Portal container={this.formContainer}>
-                    <RestaurantForm onCloseRestaurantForm={this.handleFormClose} />
+                    <Route path="/restaurant/:restaurantId/menu" render={() => <MenuItemForm onCloseRestaurantForm={this.handleFormClose} />} />
+                    <Route exact path="/" render={() => <RestaurantForm onCloseRestaurantForm={this.handleFormClose} />} />
                   </Portal>
                 ) : null}
               </div>

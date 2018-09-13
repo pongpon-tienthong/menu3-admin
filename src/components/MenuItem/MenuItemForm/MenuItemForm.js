@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -67,13 +68,12 @@ const styles = theme => ({
     padding: theme.spacing.unit
   },
   addPhotoIcon: {
-    width: 100,
-    height: 100,
+    width: 50,
+    height: 50,
     fill: theme.palette.grey[400]
   },
   dropZone: {
-    width: 150,
-    height: 150,
+    height: 100,
     borderWidth: 5,
     borderColor: theme.palette.grey[400],
     borderStyle: 'dashed',
@@ -99,38 +99,33 @@ const styles = theme => ({
   }
 });
 
-class RestaurantForm extends Component {
+class MenuItemForm extends Component {
   state = {
     minimize: false,
-    restaurantFormData: {
+    menuItemFormData: {
       name: '',
-      address1: '',
-      address2: '',
-      city: '',
-      state: '',
-      zip: '',
-      payingPriority: 0,
-      longitude: 0,
-      latitude: 0
-    },
-    imageFiles: null
+      description: '',
+      category: '',
+      price: null,
+      priority: null,
+    }
   }
 
-  handleDropFile = imageFiles => {
+  handleCreateMenuItem = () => {
+    this.props.createRestaurant(this.state.menuItemFormData, this.state.imageFiles[0]);
+  }
+
+  handleResetForm = () => {
     this.setState({
-      imageFiles: imageFiles
+      menuItemFormData: {
+        name: '',
+        description: '',
+        category: '',
+        price: null,
+        priority: null,
+      }
     });
   }
-
-  handleDeleteFile = () => {
-    this.setState({
-      imageFiles: null
-    });
-  }
-
-  handleCreateRestaurant = () => {
-    this.props.createRestaurant(this.state.restaurantFormData, this.state.imageFiles[0]);
-  };
 
   handleMinimize = e => {
     e.stopPropagation();
@@ -141,13 +136,13 @@ class RestaurantForm extends Component {
   }
 
   handleFormChange = (e, identifier) => {
-    const restaurantFormData = this.state.restaurantFormData;
-    restaurantFormData[identifier] = e.target.value;
+    const menuItemFormData = this.state.menuItemFormData;
+    menuItemFormData[identifier] = e.target.value;
 
     this.setState(state => {
       return {
         ...state,
-        restaurantFormData: restaurantFormData
+        menuItemFormData: menuItemFormData
       }
     });
   }
@@ -164,7 +159,7 @@ class RestaurantForm extends Component {
       >
         <Card className={classes.card}>
           <CardHeader
-            title="NEW RESTAURANT"
+            title="NEW MENUITEM"
             className={classes.cardHeader}
             classes={{ action: classes.cardHeaderAction }}
             action={
@@ -198,150 +193,78 @@ class RestaurantForm extends Component {
                   <TextField
                     id="name"
                     name="name"
-                    label="Restaurant name"
+                    label="Name"
                     autoComplete="off"
                     fullWidth
                     required
-                    value={this.state.restaurantFormData.name}
+                    value={this.state.menuItemFormData.name}
                     onChange={(event) => this.handleFormChange(event, "name")}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    required
-                    id="address1"
-                    name="address1"
-                    label="Address line 1"
+                    id="description"
+                    name="description"
+                    label="Description"
                     fullWidth
                     autoComplete="off"
-                    value={this.state.restaurantFormData.address1}
-                    onChange={(event) => this.handleFormChange(event, "address1")}
+                    value={this.state.menuItemFormData.description}
+                    onChange={(event) => this.handleFormChange(event, "description")}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    id="address2"
-                    name="address2"
-                    label="Address line 2"
+                    id="category"
+                    name="category"
+                    label="Category"
                     fullWidth
                     autoComplete="off"
-                    value={this.state.restaurantFormData.address2}
-                    onChange={(event) => this.handleFormChange(event, "address2")}
+                    value={this.state.menuItemFormData.category}
+                    onChange={(event) => this.handleFormChange(event, "category")}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    required
-                    id="city"
-                    name="city"
-                    label="City"
+                    id="price"
+                    name="price"
+                    label="Price"
+                    type="number"
                     fullWidth
                     autoComplete="off"
-                    value={this.state.restaurantFormData.city}
-                    onChange={(event) => this.handleFormChange(event, "city")}
+                    value={this.state.menuItemFormData.price}
+                    onChange={(event) => this.handleFormChange(event, "price")}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    id="state"
-                    name="state"
-                    label="State"
+                    id="priority"
+                    name="priority"
+                    label="Priority"
+                    type="number"
                     fullWidth
                     autoComplete="off"
-                    value={this.state.restaurantFormData.state}
-                    onChange={(event) => this.handleFormChange(event, "state")}
+                    value={this.state.menuItemFormData.priority}
+                    onChange={(event) => this.handleFormChange(event, "priority")}
                   />
-                </Grid>
-                <Grid item container spacing={8} xs={12} sm={6}>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      id="zip"
-                      name="zip"
-                      label="Zip / Postal code"
-                      type="number"
-                      fullWidth
-                      autoComplete="billing postal-code"
-                      value={this.state.restaurantFormData.zip}
-                      onChange={(event) => this.handleFormChange(event, "zip")}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      id="payingPriority"
-                      name="payingPriority"
-                      label="Paying Priority"
-                      type="number"
-                      autoComplete="off"
-                      fullWidth
-                      value={this.state.restaurantFormData.payingPriority}
-                      onChange={(event) => this.handleFormChange(event, "payingPriority")}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      id="longitude"
-                      name="longitude"
-                      label="Longitude"
-                      type="number"
-                      autoComplete="off"
-                      fullWidth
-                      value={this.state.restaurantFormData.longitude}
-                      onChange={(event) => this.handleFormChange(event, "longitude")}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      id="latitude"
-                      name="latitude"
-                      label="Latitude"
-                      type="number"
-                      autoComplete="off"
-                      fullWidth
-                      value={this.state.restaurantFormData.latitude}
-                      onChange={(event) => this.handleFormChange(event, "latitude")}
-                    />
-                  </Grid>
-                </Grid>
-
-                <Grid item container spacing={8} xs={12} sm={6}>
-                  <Grid item xs={12} className={classes.imageWrapper}>
-                    {this.state.imageFiles ? this.state.imageFiles.map((file) => {
-                      return (
-                        <Fragment key={file.name} >
-                          <img className={classes.previewImage} src={file.preview} alt={file.name} />
-                          <CustomButton
-                            variant="fab"
-                            mini
-                            aria-label="Delete"
-                            btnType="danger"
-                            className={classes.deleteButton}
-                            clicked={this.handleDeleteFile}
-                          >
-                            <Delete />
-                          </CustomButton>
-                        </Fragment>
-                      )
-                    }) :
-                      <Dropzone multiple={false} accept=".jpeg, .png" className={classes.dropZone} onDrop={imageFiles => this.handleDropFile(imageFiles)}>
-                        <AddPhotoAlternate className={classes.addPhotoIcon} />
-                      </Dropzone>
-                    }
-                  </Grid>
                 </Grid>
               </Grid>
               <div className={classes.buttons}>
                 <CustomButton
                   variant="contained"
                   btnType="primary"
-                  clicked={this.handleCreateRestaurant}
+                  clicked={this.handleCreateMenuItem}
                   className={classes.createButton}
                 >
-                  Create
-              </CustomButton>
+                  CREATE
+                </CustomButton>
+                <CustomButton
+                  variant="contained"
+                  btnType="danger"
+                  clicked={this.handleResetForm}
+                  className={classes.createButton}
+                >
+                  RESET
+                </CustomButton>
               </div>
             </CardContent>
           }
@@ -357,4 +280,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(RestaurantForm));
+export default connect(null, mapDispatchToProps)(withStyles(styles)(MenuItemForm));
