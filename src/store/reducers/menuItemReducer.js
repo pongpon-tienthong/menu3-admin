@@ -7,6 +7,7 @@ const initialState = {
 const menuItemReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_MENUITEMS:
+    case actionTypes.CREATE_MENUITEM:
       return {
         ...state,
         menuItems: action.menuItems

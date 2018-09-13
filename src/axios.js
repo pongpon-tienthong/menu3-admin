@@ -20,4 +20,6 @@ instance.interceptors.response.use(response => {
   return Promise.reject(error);
 });
 
+instance.defaults.headers.post['Content-Type'] = 'application/json';
+
 export default instance;

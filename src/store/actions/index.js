@@ -8,5 +8,6 @@ export {
 } from './restaurants';
 
 export {
-  getMenuItems
+  getMenuItems,
+  createMenuItem
 } from './menuItems'

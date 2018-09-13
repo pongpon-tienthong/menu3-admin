@@ -5,6 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Dropzone from 'react-dropzone';
 
 const styles = theme => ({
   card: {
@@ -27,6 +28,18 @@ const styles = theme => ({
   cover: {
     minWidth: 170,
     minHeight: 170,
+  },
+  dropZone: {
+    width: 170,
+    height: 170,
+    borderWidth: 3,
+    borderColor: theme.palette.grey[400],
+    borderStyle: 'dashed',
+    borderRadius: 5,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlignment: 'center'
   },
   actions: {
     display: 'flex',
@@ -65,10 +78,16 @@ class MenuItemCard extends Component {
     return (
       <Grid item xs={12} sm={6}>
         <Card className={classes.card}>
-          <CardMedia
-            className={classes.cover}
-            image={this.props.menuItem.imgSrc}
-          />
+          {this.props.menuItem.imgSrc ?
+            <CardMedia
+              className={classes.cover}
+              image={this.props.menuItem.imgSrc}
+            /> :
+            <Dropzone multiple={false} accept=".jpeg, .png" className={classes.dropZone}>
+              Drop or Select Photo
+              (.jpeg, .jpg, .png)
+            </Dropzone>
+          }
           <div className={classes.details}>
             <CardContent className={classes.content}>
               <Typography variant="title">{this.props.menuItem.name}</Typography>

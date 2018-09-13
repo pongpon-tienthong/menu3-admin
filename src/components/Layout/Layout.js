@@ -214,7 +214,7 @@ class Layout extends Component {
               <div>
                 {this.props.showForm ? (
                   <Portal container={this.formContainer}>
-                    <Route path="/restaurant/:restaurantId/menu" render={() => <MenuItemForm onCloseRestaurantForm={this.handleFormClose} />} />
+                    <Route path="/restaurant/:restaurantId/menu" render={() => <MenuItemForm handleMenuItemClose={this.handleFormClose} />} />
                     <Route exact path="/" render={() => <RestaurantForm onCloseRestaurantForm={this.handleFormClose} />} />
                   </Portal>
                 ) : null}

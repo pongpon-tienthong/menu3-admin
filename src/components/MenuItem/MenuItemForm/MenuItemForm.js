@@ -1,18 +1,19 @@
 import React, { Component, Fragment } from 'react'
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
-import { Maximize, Minimize, Close, AddPhotoAlternate, Delete } from '@material-ui/icons';
-import Dropzone from 'react-dropzone';
+import Maximize from '@material-ui/icons/Maximize';
+import Minimize from '@material-ui/icons/Minimize';
+import Close from '@material-ui/icons/Close';
 
-import { createRestaurant } from "../../../store/actions";
+import { createMenuItem } from "../../../store/actions";
 import CustomButton from "../../UI/CumtomButton/CustomButton";
 
 const styles = theme => ({
@@ -106,13 +107,15 @@ class MenuItemForm extends Component {
       name: '',
       description: '',
       category: '',
-      price: null,
-      priority: null,
+      price: '',
+      priority: 0,
     }
   }
 
   handleCreateMenuItem = () => {
-    this.props.createRestaurant(this.state.menuItemFormData, this.state.imageFiles[0]);
+    this.props.createMenuItem(this.props.match.params.restaurantId, this.state.menuItemFormData);
+    this.props.handleMenuItemClose();
+    this.handleResetForm();
   }
 
   handleResetForm = () => {
@@ -121,8 +124,8 @@ class MenuItemForm extends Component {
         name: '',
         description: '',
         category: '',
-        price: null,
-        priority: null,
+        price: '',
+        priority: 0,
       }
     });
   }
@@ -174,7 +177,7 @@ class MenuItemForm extends Component {
                 <CustomButton
                   color="inherit"
                   className={classes.cardHeaderIcon}
-                  clicked={this.props.onCloseRestaurantForm}
+                  clicked={this.props.handleMenuItemClose}
                 >
                   <Close fontSize='inherit' />
                 </CustomButton>
@@ -276,8 +279,8 @@ class MenuItemForm extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createRestaurant: (newRestaurant, imageFile) => dispatch(createRestaurant(newRestaurant, imageFile)),
+    createMenuItem: (restaurantId, newMenuItem) => dispatch(createMenuItem(restaurantId, newMenuItem)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(MenuItemForm));
+export default withRouter(connect(null, mapDispatchToProps)(withStyles(styles)(MenuItemForm)));
