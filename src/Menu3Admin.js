@@ -5,6 +5,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
 
 import Layout from "./components/Layout/Layout";
+import AuthScreen from "./screens/AuthScreen/AuthScreen";
 import RestaurantScreen from "./screens/RestaurantScreen/RestaurantScreen";
 import MenuScreen from "./screens/MenuScreen/MenuScreen";
 
@@ -29,12 +30,13 @@ class Menu3Admin extends Component {
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <BrowserRouter>
-          <Layout>
-            <Switch>
+          <Switch>
+            <Route path="/auth" component={AuthScreen} />
+            <Layout>
               <Route path="/restaurant/:restaurantId/menu" component={MenuScreen} />
               <Route exact path="/" component={RestaurantScreen} />
-            </Switch>
-          </Layout>
+            </Layout>
+          </Switch>
         </BrowserRouter>
       </MuiThemeProvider>
     );
