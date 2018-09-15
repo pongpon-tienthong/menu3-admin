@@ -141,20 +141,20 @@ class MenuItemCard extends Component {
               </CardContent>
               <div className={classes.controls}>
                 <Chip
-                  avatar={<Avatar><DoneIcon /></Avatar>}
+                  avatar={this.props.menuItem.arSrcForAndroid && <Avatar><DoneIcon /></Avatar>}
                   label="Android AR"
                   onClick={this.handleOpenArDropZone}
                   className={classes.chip}
                 />
                 <Chip
-                  avatar={<Avatar><DoneIcon /></Avatar>}
+                  avatar={this.props.menuItem.arSrc && <Avatar><DoneIcon /></Avatar>}
                   label="iOS AR"
                   onClick={this.handleOpenArDropZone}
                   className={classes.chip}
                 />
-                <IconButton aria-label="Delete" onClick={() => this.props.deleted(this.props.menuItem.id)}>
+                <Button variant="fab" mini aria-label="Delete" onClick={() => this.props.deleted(this.props.menuItem.id)}>
                   <DeleteIcon />
-                </IconButton>
+                </Button>
               </div>
             </div>
           </Card>
