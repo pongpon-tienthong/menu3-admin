@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { connect } from "react-redux";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,6 +10,8 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+
+import { auth } from "../../store/actions/index";
 
 const styles = theme => ({
   layout: {
@@ -43,50 +45,85 @@ const styles = theme => ({
   },
 });
 
-function SignIn(props) {
-  const { classes } = props;
+class AuthScreen extends Component {
+  state = {
+    email: '',
+    password: ''
+  }
 
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockIcon />
-          </Avatar>
-          <Typography variant="headline">Sign in</Typography>
-          <form className={classes.form}>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus />
-            </FormControl>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Input
-                name="password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </FormControl>
-            <Button
-              type="submit"
-              fullWidth
-              variant="raised"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign in
+  submitHandler = event => {
+    event.preventDefault();
+    this.props.onAuth(this.state.email, this.state.password);
+  }
+
+  handleEmailChanged = event => {
+    this.setState({
+      email: event.target.value
+    });
+  }
+
+  handlePasswordChanged = event => {
+    this.setState({
+      password: event.target.value
+    });
+  }
+
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <main className={classes.layout}>
+          <Paper className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockIcon />
+            </Avatar>
+            <Typography variant="headline">Sign in</Typography>
+            <form className={classes.form} onSubmit={this.submitHandler}>
+              <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="email">Email Address</InputLabel>
+                <Input
+                  id="email"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  value={this.state.email}
+                  onChange={this.handleEmailChanged}
+                />
+              </FormControl>
+              <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="password">Password</InputLabel>
+                <Input
+                  name="password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  value={this.state.password}
+                  onChange={this.handlePasswordChanged}
+                />
+              </FormControl>
+              <Button
+                type="submit"
+                fullWidth
+                variant="raised"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign in
             </Button>
-          </form>
-        </Paper>
-      </main>
-    </React.Fragment>
-  );
+            </form>
+          </Paper>
+        </main>
+      </React.Fragment>
+    );
+  }
 }
 
-SignIn.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuth: (email, password) => dispatch(auth(email, password))
+  };
+}
 
-export default withStyles(styles)(SignIn);
+export default connect(null, mapDispatchToProps)(withStyles(styles)(AuthScreen));

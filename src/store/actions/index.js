@@ -13,4 +13,8 @@ export {
   deleteMenuItem,
   uploadArModel,
   uploadMenuItemImage
-} from './menuItems'
+} from './menuItems';
+
+export {
+  auth
+} from './auth';
