@@ -78,6 +78,12 @@ const styles = theme => ({
   },
   chip: {
     margin: theme.spacing.unit,
+  },
+  button: {
+    margin: theme.spacing.unit,
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
   }
 });
 
@@ -152,8 +158,9 @@ class MenuItemCard extends Component {
                   onClick={this.handleOpenArDropZone}
                   className={classes.chip}
                 />
-                <Button variant="fab" mini aria-label="Delete" onClick={() => this.props.deleted(this.props.menuItem.id)}>
-                  <DeleteIcon />
+                <Button variant="contained" size="small" className={classes.button} onClick={() => this.props.deleted(this.props.menuItem.id)}>
+                  Delete
+                  <DeleteIcon className={classes.rightIcon} />
                 </Button>
               </div>
             </div>
