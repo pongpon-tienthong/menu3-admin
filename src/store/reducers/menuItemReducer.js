@@ -9,7 +9,7 @@ const menuItemReducer = (state = initialState, action) => {
     case actionTypes.GET_MENUITEMS:
     case actionTypes.CREATE_MENUITEM:
     case actionTypes.DELETE_MENUITEM:
-    case actionTypes.UPLOAD_MENUITEM_IMAGE:
+    case actionTypes.UPLOAD_MENUITEM_MEDIA:
       return {
         ...state,
         menuItems: action.menuItems

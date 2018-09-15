@@ -2,7 +2,7 @@ import {
   GET_MENUITEMS,
   CREATE_MENUITEM,
   DELETE_MENUITEM,
-  UPLOAD_MENUITEM_IMAGE
+  UPLOAD_MENUITEM_MEDIA
 } from "./actionTypes";
 
 import axios from "../../axios";
@@ -41,10 +41,11 @@ export const createMenuItemAsync = menuItems => {
   };
 }
 
+//TODO: combine the two media methods
 export const uploadMenuItemImage = (restaurantId, menuItemId, imageFile) => {
   const formData = new FormData();
   formData.set('file', imageFile);
-  formData.set('createdBy', 'Menu3 Admin');
+  formData.set('createdBy', 'Menu3_Admin');
 
   return dispatch => {
     axios({
@@ -56,15 +57,38 @@ export const uploadMenuItemImage = (restaurantId, menuItemId, imageFile) => {
       }
     }).then(res => {
       axios.get(`/restaurants/${restaurantId}/menus`).then(res => {
-        dispatch(uploadMenuItemImageAsync(res.data));
+        dispatch(uploadMenuItemMediaAsync(res.data));
       });
     });
   };
 }
 
-export const uploadMenuItemImageAsync = menuItems => {
+export const uploadArModel = (restaurantId, menuItemId, type, arFile) => {
+  const formData = new FormData();
+  formData.set('file', arFile);
+  formData.set('createdBy', 'Menu3_Admin');
+
+  const arUrl = type === 'android' ? 'android-ar' : 'ar';
+
+  return dispatch => {
+    axios({
+      method: 'post',
+      url: `/menus/${menuItemId}/${arUrl}`,
+      data: formData,
+      config: {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }
+    }).then(res => {
+      axios.get(`/restaurants/${restaurantId}/menus`).then(res => {
+        dispatch(uploadMenuItemMediaAsync(res.data));
+      });
+    });
+  };
+}
+
+export const uploadMenuItemMediaAsync = menuItems => {
   return {
-    type: UPLOAD_MENUITEM_IMAGE,
+    type: UPLOAD_MENUITEM_MEDIA,
     menuItems: menuItems
   };
 }

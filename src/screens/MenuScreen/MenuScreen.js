@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
 
-import { getMenuItems, deleteMenuItem, uploadMenuItemImage } from "../../store/actions";
+import {
+  getMenuItems,
+  deleteMenuItem,
+  uploadMenuItemImage,
+  uploadArModel
+} from "../../store/actions";
 
 import MenuItemCard from "../../components/MenuItem/MenuItemCard/MenuItemCard";
 
@@ -25,6 +30,10 @@ class MenuScreen extends Component {
     this.props.uploadMenuItemImage(this.state.restaurantId, menuItemId, imageFile);
   }
 
+  handleDropArFile = (menuItemId, type, arFile) => {
+    this.props.uploadArModel(this.state.restaurantId, menuItemId, type, arFile);
+  }
+
   handleDelete = menuItemId => {
     this.props.deleteMenuItem(this.state.restaurantId, menuItemId);
   }
@@ -35,6 +44,7 @@ class MenuScreen extends Component {
         key={menuItem.id}
         menuItem={menuItem}
         dropped={this.handleDropFile}
+        droppedArModel={this.handleDropArFile}
         deleted={this.handleDelete}
       />
     );
@@ -58,7 +68,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getMenuItems: (restaurantId) => dispatch(getMenuItems(restaurantId)),
     deleteMenuItem: (restaurantId, menuItemId) => dispatch(deleteMenuItem(restaurantId, menuItemId)),
-    uploadMenuItemImage: (restaurantId, menuItemId, imageFile) => dispatch(uploadMenuItemImage(restaurantId, menuItemId, imageFile))
+    uploadMenuItemImage: (restaurantId, menuItemId, imageFile) => dispatch(uploadMenuItemImage(restaurantId, menuItemId, imageFile)),
+    uploadArModel: (restaurantId, menuItemId, type, arFile) => dispatch(uploadArModel(restaurantId, menuItemId, type, arFile))
   };
 }
 

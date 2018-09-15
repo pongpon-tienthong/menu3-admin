@@ -11,5 +11,6 @@ export {
   getMenuItems,
   createMenuItem,
   deleteMenuItem,
+  uploadArModel,
   uploadMenuItemImage
 } from './menuItems'
