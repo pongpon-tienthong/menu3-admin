@@ -45,7 +45,7 @@ export const createRestaurant = (newRestaurant, imageFile) => {
     axios.post('/restaurants', newRestaurant).then(res => {
       const imageFormData = new FormData();
       imageFormData.set('file', imageFile);
-      imageFormData.set('createdBy', 'Frontend');
+      imageFormData.set('createdBy', 'Menu3 Admin');
 
       axios({
         method: 'post',

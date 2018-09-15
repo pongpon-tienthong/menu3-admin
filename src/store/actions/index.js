@@ -9,5 +9,7 @@ export {
 
 export {
   getMenuItems,
-  createMenuItem
+  createMenuItem,
+  deleteMenuItem,
+  uploadMenuItemImage
 } from './menuItems'

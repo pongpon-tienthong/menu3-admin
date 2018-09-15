@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -6,6 +7,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Dropzone from 'react-dropzone';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = theme => ({
   card: {
@@ -66,12 +69,6 @@ const styles = theme => ({
 });
 
 class MenuItemCard extends Component {
-  state = { expanded: false };
-
-  handleExpandClick = () => {
-    this.setState(state => ({ expanded: !state.expanded }));
-  };
-
   render() {
     const { classes } = this.props;
 
@@ -83,7 +80,11 @@ class MenuItemCard extends Component {
               className={classes.cover}
               image={this.props.menuItem.imgSrc}
             /> :
-            <Dropzone multiple={false} accept=".jpeg, .png" className={classes.dropZone}>
+            <Dropzone
+              multiple={false}
+              accept=".jpeg, jpg, .png"
+              className={classes.dropZone}
+              onDrop={imageFiles => this.props.dropped(this.props.menuItem.id, imageFiles[0])}>
               Drop or Select Photo
               (.jpeg, .jpg, .png)
             </Dropzone>
@@ -112,6 +113,11 @@ class MenuItemCard extends Component {
                 </Typography>
                 : null}
             </CardContent>
+            <div className={classes.controls}>
+              <IconButton aria-label="Delete" onClick={() => this.props.deleted(this.props.menuItem.id)}>
+                <DeleteIcon />
+              </IconButton>
+            </div>
           </div>
         </Card>
       </Grid>
