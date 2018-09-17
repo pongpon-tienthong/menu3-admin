@@ -16,5 +16,6 @@ export {
 } from './menuItems';
 
 export {
-  auth
+  auth,
+  authCheckState
 } from './auth';

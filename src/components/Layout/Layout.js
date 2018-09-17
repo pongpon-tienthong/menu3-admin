@@ -206,7 +206,7 @@ class Layout extends Component {
             >
               <Toolbar variant='dense'>
                 <Route path="/restaurant/:restaurantId/menu" render={() => <MenuScreenButtons clicked={this.handleClick} />} />
-                <Route exact path="/" render={() => <RestaurantScreenButtons clicked={this.handleClick} />} />
+                <Route exact path="/restaurant" render={() => <RestaurantScreenButtons clicked={this.handleClick} />} />
               </Toolbar>
               <Divider />
             </AppBar>
@@ -215,7 +215,7 @@ class Layout extends Component {
                 {this.props.showForm ? (
                   <Portal container={this.formContainer}>
                     <Route path="/restaurant/:restaurantId/menu" render={() => <MenuItemForm handleMenuItemClose={this.handleFormClose} />} />
-                    <Route exact path="/" render={() => <RestaurantForm onCloseRestaurantForm={this.handleFormClose} />} />
+                    <Route exact path="/restaurant" render={() => <RestaurantForm onCloseRestaurantForm={this.handleFormClose} />} />
                   </Portal>
                 ) : null}
               </div>

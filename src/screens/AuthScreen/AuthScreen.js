@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -71,8 +72,14 @@ class AuthScreen extends Component {
   render() {
     const { classes } = this.props;
 
+    let authRedirect = null;
+    if (this.props.isAuthenticated) {
+      authRedirect = <Redirect to="/" />
+    }
+
     return (
       <React.Fragment>
+        {authRedirect}
         <CssBaseline />
         <main className={classes.layout}>
           <Paper className={classes.paper}>
@@ -120,10 +127,19 @@ class AuthScreen extends Component {
   }
 }
 
+// TODO: Add error and loading later
+const mapStateToProps = state => {
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error,
+    isAuthenticated: state.auth.token !== null
+  };
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     onAuth: (email, password) => dispatch(auth(email, password))
   };
 }
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(AuthScreen));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AuthScreen));

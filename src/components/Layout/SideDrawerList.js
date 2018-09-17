@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import RestaurantIcon from "@material-ui/icons/RoomService";
 
 const sideDrawerList = () => (
-  <Link to="/">
+  <Link to="/restaurant">
     <ListItem button>
       <ListItemIcon>
         <RestaurantIcon />
