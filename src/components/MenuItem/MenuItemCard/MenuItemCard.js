@@ -114,7 +114,7 @@ class MenuItemCard extends Component {
               /> :
               <Dropzone
                 multiple={false}
-                accept=".jpeg, jpg, .png"
+                accept=".jpeg, .jpg, .png"
                 className={classes.dropZone}
                 onDrop={imageFiles => this.props.dropped(this.props.menuItem.id, imageFiles[0])}>
                 Drop or Select Photo
