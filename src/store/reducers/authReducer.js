@@ -17,6 +17,7 @@ const authReducer = (state = initialState, action) => {
       };
     case actionTypes.AUTH_SUCCESS:
       return {
+        ...state,
         token: action.token,
         userId: action.userId,
         error: null,
@@ -24,6 +25,7 @@ const authReducer = (state = initialState, action) => {
       };
     case actionTypes.AUTH_FAIL:
       return {
+        ...state,
         error: action.error,
         loading: false
       };

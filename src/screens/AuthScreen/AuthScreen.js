@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
@@ -13,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { auth } from "../../store/actions/index";
+import menu3Logo from "../../asset/images/menu3_logo.png";
+import CustomButton from "../../components/UI/CumtomButton/CustomButton";
 
 const styles = theme => ({
   layout: {
@@ -44,6 +45,16 @@ const styles = theme => ({
   submit: {
     marginTop: theme.spacing.unit * 3,
   },
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  logo: {
+    width: theme.spacing.unit * 5,
+    height: theme.spacing.unit * 5,
+    marginRight: theme.spacing.unit * 2
+  }
 });
 
 class AuthScreen extends Component {
@@ -83,10 +94,14 @@ class AuthScreen extends Component {
         <CssBaseline />
         <main className={classes.layout}>
           <Paper className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockIcon />
-            </Avatar>
-            <Typography variant="headline">Sign in</Typography>
+            <div className={classes.header}>
+              <img
+                className={classes.logo}
+                src={menu3Logo}
+                alt="Menu3 Logo"
+              />
+              <Typography variant="title">Menu3 Admin</Typography>
+            </div>
             <form className={classes.form} onSubmit={this.submitHandler}>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="email">Email Address</InputLabel>
@@ -110,15 +125,15 @@ class AuthScreen extends Component {
                   onChange={this.handlePasswordChanged}
                 />
               </FormControl>
-              <Button
+              <CustomButton
                 type="submit"
                 fullWidth
                 variant="raised"
-                color="primary"
+                btnType="primary"
                 className={classes.submit}
               >
                 Sign in
-            </Button>
+            </CustomButton>
             </form>
           </Paper>
         </main>
