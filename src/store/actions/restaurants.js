@@ -4,7 +4,8 @@ import {
   SELECT_RESTAURANT,
   SHOW_RESTAURANT_FORM,
   HIDE_RESTAURANT_FORM,
-  DELETE_RESTAURANT
+  DELETE_RESTAURANT,
+  UPLOAD_RESTAURANT_IMAGE
 } from "./actionTypes";
 
 import axios from "../../axios";
@@ -32,32 +33,17 @@ export const deleteRestaurantAsync = restaurants => {
 
 export const getRestaurants = () => {
   return dispatch => {
-    axios
-      .get('/restaurants')
-      .then(res => {
-        dispatch(getRestaurantAsync(res.data));
-      });
+    axios.get('/restaurants').then(res => {
+      dispatch(getRestaurantAsync(res.data));
+    });
   };
 };
 
-export const createRestaurant = (newRestaurant, imageFile) => {
+export const createRestaurant = newRestaurant => {
   return dispatch => {
     axios.post('/restaurants', newRestaurant).then(res => {
-      const imageFormData = new FormData();
-      imageFormData.set('file', imageFile);
-      imageFormData.set('createdBy', 'Menu3 Admin');
-
-      axios({
-        method: 'post',
-        url: `/restaurants/${res.data.id}/image`,
-        data: imageFormData,
-        config: { headers: { 'Content-Type': 'multipart/form-data' } }
-      }).then(postImageRes => {
-        axios
-          .get('/restaurants')
-          .then(res => {
-            dispatch(createRestaurantAsync(res.data));
-          });
+      axios.get('/restaurants').then(res => {
+        dispatch(createRestaurantAsync(res.data));
       });
     })
   };
@@ -85,11 +71,37 @@ export const showRestaurantForm = () => {
 export const deleteRestaurant = restaurantId => {
   return dispatch => {
     axios.delete(`/restaurants/${restaurantId}`).then(res => {
-      axios
-        .get('/restaurants')
-        .then(res => {
-          dispatch(deleteRestaurantAsync(res.data));
-        });
+      axios.get('/restaurants').then(res => {
+        dispatch(deleteRestaurantAsync(res.data));
+      });
     });
   };
 };
+
+export const uploadRestaurantImage = (restaurantId, imageFile) => {
+  const formData = new FormData();
+  formData.set('file', imageFile);
+  formData.set('createdBy', 'Menu3_Admin');
+
+  return dispatch => {
+    axios({
+      method: 'post',
+      url: `/restaurants/${restaurantId}/image`,
+      data: formData,
+      config: {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }
+    }).then(res => {
+      axios.get('/restaurants').then(res => {
+        dispatch(uploadRestaurantImageAsync(res.data));
+      });
+    });
+  };
+}
+
+export const uploadRestaurantImageAsync = restaurants => {
+  return {
+    type: UPLOAD_RESTAURANT_IMAGE,
+    restaurants: restaurants
+  };
+} 

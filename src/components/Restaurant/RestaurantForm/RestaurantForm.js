@@ -132,7 +132,7 @@ class RestaurantForm extends Component {
   }
 
   handleCreateRestaurant = () => {
-    this.props.createRestaurant(this.state.restaurantFormData, this.state.imageFiles[0]);
+    this.props.createRestaurant(this.state.restaurantFormData);
   };
 
   handleMinimize = e => {
@@ -362,7 +362,7 @@ class RestaurantForm extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createRestaurant: (newRestaurant, imageFile) => dispatch(createRestaurant(newRestaurant, imageFile)),
+    createRestaurant: newRestaurant => dispatch(createRestaurant(newRestaurant))
   };
 };
 

@@ -1,6 +1,7 @@
 export {
   getRestaurants,
   createRestaurant,
+  uploadRestaurantImage,
   selectRestaurant,
   deleteRestaurant,
   showRestaurantForm,

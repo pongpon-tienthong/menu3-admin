@@ -11,11 +11,12 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Dropzone from 'react-dropzone';
 
 const styles = theme => ({
   card: {
     display: 'flex',
-    height: 150
+    height: 170
   },
   details: {
     display: 'flex',
@@ -25,8 +26,20 @@ const styles = theme => ({
     flex: '1 0 auto',
   },
   cover: {
-    width: 150,
-    height: 150,
+    width: 170,
+    height: 170,
+  },
+  dropZone: {
+    width: 170,
+    height: 170,
+    borderWidth: 3,
+    borderColor: theme.palette.grey[400],
+    borderStyle: 'dashed',
+    borderRadius: 5,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlignment: 'center'
   },
   controls: {
     display: 'flex',
@@ -42,10 +55,21 @@ const restaurantCard = props => {
   return (
     <Grid item xs={12} sm={6}>
       <Card className={classes.card}>
-        <CardMedia
-          className={classes.cover}
-          image={props.restaurant.imgSrc}
-        />
+        {props.restaurant.imgSrc ?
+          <CardMedia
+            className={classes.cover}
+            image={props.restaurant.imgSrc}
+          /> :
+          <Dropzone
+            multiple={false}
+            accept=".jpg, .png"
+            className={classes.dropZone}
+            onDrop={imageFiles => props.dropped(props.restaurant.id, imageFiles[0])}
+          >
+            Drop or Select Photo
+            (.jpg, .png)
+              </Dropzone>
+        }
         <div className={classes.details}>
           <CardContent className={classes.content}>
             <Typography variant="title">{props.restaurant.name}</Typography>

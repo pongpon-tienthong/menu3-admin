@@ -8,14 +8,11 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Dropzone from 'react-dropzone';
 import Button from '@material-ui/core/Button';
-import Badge from '@material-ui/core/Badge';
-import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
@@ -116,7 +113,8 @@ class MenuItemCard extends Component {
                 multiple={false}
                 accept=".jpeg, .jpg, .png"
                 className={classes.dropZone}
-                onDrop={imageFiles => this.props.dropped(this.props.menuItem.id, imageFiles[0])}>
+                onDrop={imageFiles => this.props.dropped(this.props.menuItem.id, imageFiles[0])}
+              >
                 Drop or Select Photo
                 (.jpeg, .jpg, .png)
               </Dropzone>

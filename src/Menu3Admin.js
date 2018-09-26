@@ -40,7 +40,6 @@ class Menu3Admin extends Component {
       </Switch>
     );
 
-    console.log('isAuthenticated', this.props.isAuthenticated);
     if (this.props.isAuthenticated) {
       routes = (
         <Fragment>

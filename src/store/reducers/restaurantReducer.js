@@ -21,6 +21,7 @@ const restaurantReducer = (state = initialState, action) => {
         showRestaurantForm: true
       }
     case actionTypes.GET_RESTAURANTS:
+    case actionTypes.UPLOAD_RESTAURANT_IMAGE:
     case actionTypes.DELETE_RESTAURANT:
       return {
         ...state,

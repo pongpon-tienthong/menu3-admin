@@ -5,7 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import {
   getRestaurants,
   selectRestaurant,
-  deleteRestaurant
+  deleteRestaurant,
+  uploadRestaurantImage
 } from "../../store/actions";
 
 import Restaurant from "../../components/Restaurant/RestaurantCard/RestaurantCard";
@@ -15,12 +16,16 @@ class RestaurantScreen extends Component {
     this.props.getRestaurants();
   }
 
+  handleDropFile = (restaurantId, imageFile) => {
+    this.props.uploadRestaurantImage(restaurantId, imageFile);
+  }
+
   render() {
     const restaurants = this.props.restaurants.map(
       restaurant => <Restaurant
         key={restaurant.id}
         restaurant={restaurant}
-        // edited={() => this.props.selectRestaurant(restaurant)}
+        dropped={this.handleDropFile}
         deleted={() => this.props.deleteRestaurant(restaurant.id)}
       />
     );
@@ -43,7 +48,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getRestaurants: () => dispatch(getRestaurants()),
     selectRestaurant: restaurant => dispatch(selectRestaurant(restaurant)),
-    deleteRestaurant: restaurantId => dispatch(deleteRestaurant(restaurantId))
+    deleteRestaurant: restaurantId => dispatch(deleteRestaurant(restaurantId)),
+    uploadRestaurantImage: (restaurantId, imageFile) => dispatch(uploadRestaurantImage(restaurantId, imageFile))
   };
 };
 
