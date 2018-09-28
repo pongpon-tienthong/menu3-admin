@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const instance = axios.create({
-  // baseURL: 'http://menu3.us-east-1.elasticbeanstalk.com:8080/api'
-  baseURL: 'http://staging2-menu3.us-east-1.elasticbeanstalk.com:8080/api'
+  baseURL: 'http://menu3.us-east-1.elasticbeanstalk.com:8080/api'
+  // baseURL: 'http://staging2-menu3.us-east-1.elasticbeanstalk.com:8080/api'
   // baseURL: 'http://localhost:8080/api'
 });
 

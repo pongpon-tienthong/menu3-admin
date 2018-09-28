@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
@@ -89,7 +89,6 @@ class AuthScreen extends Component {
     return (
       <Fragment>
         {authRedirect}
-        {/* <CssBaseline /> */}
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <div className={classes.header}>
@@ -101,28 +100,60 @@ class AuthScreen extends Component {
               <Typography variant="title">Menu3 Admin</Typography>
             </div>
             <form className={classes.form} onSubmit={this.submitHandler}>
-              <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="email">Email Address</InputLabel>
-                <Input
-                  id="email"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                  value={this.state.email}
-                  onChange={this.handleEmailChanged}
-                />
-              </FormControl>
-              <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="password">Password</InputLabel>
-                <Input
-                  name="password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  value={this.state.password}
-                  onChange={this.handlePasswordChanged}
-                />
-              </FormControl>
+              {this.props.error ?
+                <Fragment>
+                  <FormControl margin="normal" required fullWidth error>
+                    <InputLabel htmlFor="email">Email Address</InputLabel>
+                    <Input
+                      id="email"
+                      name="email"
+                      autoComplete="email"
+                      autoFocus
+                      value={this.state.email}
+                      onChange={this.handleEmailChanged}
+                    />
+                    <FormHelperText>Wrong email or password.</FormHelperText>
+                  </FormControl>
+                  <FormControl margin="normal" required fullWidth error>
+                    <InputLabel htmlFor="password">Password</InputLabel>
+                    <Input
+                      name="password"
+                      type="password"
+                      id="password"
+                      autoComplete="current-password"
+                      value={this.state.password}
+                      onChange={this.handlePasswordChanged}
+                    />
+                    <FormHelperText>Wrong email or password.</FormHelperText>
+                  </FormControl>
+                </Fragment>
+                :
+                <Fragment>
+                  <FormControl margin="normal" required fullWidth>
+                    <InputLabel htmlFor="email">Email Address</InputLabel>
+                    <Input
+                      id="email"
+                      name="email"
+                      autoComplete="email"
+                      autoFocus
+                      value={this.state.email}
+                      onChange={this.handleEmailChanged}
+                    />
+                  </FormControl>
+                  <FormControl margin="normal" required fullWidth>
+                    <InputLabel htmlFor="password">Password</InputLabel>
+                    <Input
+                      name="password"
+                      type="password"
+                      id="password"
+                      autoComplete="current-password"
+                      value={this.state.password}
+                      onChange={this.handlePasswordChanged}
+                    />
+                  </FormControl>
+                </Fragment>
+              }
+
               <CustomButton
                 type="submit"
                 fullWidth
