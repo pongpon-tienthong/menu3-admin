@@ -8,8 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
-import { Maximize, Minimize, Close, AddPhotoAlternate, Delete } from '@material-ui/icons';
-import Dropzone from 'react-dropzone';
+import { Maximize, Minimize, Close } from '@material-ui/icons';
 
 import { createRestaurant } from "../../../store/actions";
 import CustomButton from "../../UI/CumtomButton/CustomButton";
